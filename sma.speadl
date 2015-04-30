@@ -1,0 +1,26 @@
+import interfaces.Test
+//import interfaces.TypeDeServicePasTerrible
+//
+namespace SMA {
+	
+	component TestComponent {
+		provides unServiceSuperChouette : Test
+		requires unServiceBasiqueBofBof : Test
+	}
+	
+//	component ServerComponentType {
+//		provides unServicePasSiMal : TypeDeServicePasTerrible
+//	}
+//	
+//	component BigComponentType {
+//		provides unServiceQuiDechire : TypeDeServiceSuperChouette = client.unServiceSuperChouette
+//		
+//		part  client: ClientComponentType {
+//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
+//			}
+//		part server : ServerComponentType
+//		part autreClient : ClientComponentType {
+//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
+//		}
+//	}
+}
