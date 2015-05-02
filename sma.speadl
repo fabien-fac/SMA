@@ -1,11 +1,12 @@
-import interfaces.Test
+import interfaces.*;
 //import interfaces.TypeDeServicePasTerrible
 //
 namespace SMA {
 	
-	component TestComponent {
-		provides unServiceSuperChouette : Test
-		requires unServiceBasiqueBofBof : Test
+	component Agent {
+		provides infosService : IInfos
+		provides actionAgentService : IActionsAgent
+		requires percevoirService : IPercevoir
 	}
 	
 //	component ServerComponentType {
