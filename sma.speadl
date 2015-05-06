@@ -1,27 +1,43 @@
-import interfaces.*;
+import classes.Position
+import interfaces.IActionsAgent
+import interfaces.ICreateElement
+import interfaces.IInfos
+import interfaces.ILog
+
 //import interfaces.TypeDeServicePasTerrible
 //
 namespace SMA {
-	
-	component Agent {
-		provides infosService : IInfos
-		provides actionAgentService : IActionsAgent
-		requires percevoirService : IPercevoir
+
+	ecosystem System {
+
+		provides create: ICreateElement
+		requires logSystem: ILog
+		
+		species Agent(nom: String, position: Position, couleur: String) {
+			provides infosService: IInfos
+			provides actionAgentService: IActionsAgent
+//			requires percevoirService: IPercevoir
+		}
 	}
 	
-//	component ServerComponentType {
-//		provides unServicePasSiMal : TypeDeServicePasTerrible
-//	}
-//	
-//	component BigComponentType {
-//		provides unServiceQuiDechire : TypeDeServiceSuperChouette = client.unServiceSuperChouette
-//		
-//		part  client: ClientComponentType {
-//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
-//			}
-//		part server : ServerComponentType
-//		part autreClient : ClientComponentType {
-//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
-//		}
-//	}
+	component Logger {
+		provides log: ILog
+	}
+
+	//	component ServerComponentType {
+	//		provides unServicePasSiMal : TypeDeServicePasTerrible
+	//	}
+	//	
+	//	component BigComponentType {
+	//		provides unServiceQuiDechire : TypeDeServiceSuperChouette = client.unServiceSuperChouette
+	//		
+	//		part  client: ClientComponentType {
+	//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
+	//			}
+	//		part server : ServerComponentType
+	//		part autreClient : ClientComponentType {
+	//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
+	//		}
+	//	}
+
 }
