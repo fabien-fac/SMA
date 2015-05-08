@@ -3,23 +3,54 @@ import interfaces.IActionsAgent
 import interfaces.ICreateElement
 import interfaces.IInfos
 import interfaces.ILog
+import interfaces.IPercevoir
 
 //import interfaces.TypeDeServicePasTerrible
 //
 namespace SMA {
 
-	ecosystem System {
+	ecosystem Agents {
 
-		provides create: ICreateElement
-		requires logSystem: ILog
-		
+		provides createElement: ICreateElement
+		//requires percevoirAgents: IPercevoir
+
 		species Agent(nom: String, position: Position, couleur: String) {
-			provides infosService: IInfos
-			provides actionAgentService: IActionsAgent
-//			requires percevoirService: IPercevoir
+			provides infosAgent: IInfos
+			provides actionsAgent: IActionsAgent
+			requires percevoirAgent: IPercevoir
 		}
 	}
 	
+	ecosystem ProxysAgent {
+		
+		provides createProxyAgent: ICreateElement
+		requires percevoirProxy: IPercevoir
+		
+		species Proxy(nomAgent: String){
+			provides percevoirProxySpecy: IPercevoir
+		}
+	}
+	
+	ecosystem AgentsAvecProxyEcosystem {
+		
+		provides infos: IInfos
+		provides actionsAgentsProxy: IActionsAgent
+		requires percevoirAP: IPercevoir
+		
+		part proxys: ProxysAgent{
+			bind percevoirProxy to percevoirAP
+		}
+		
+		part agents: Agents
+		
+		species AgentAvecProxy(nom: String, position: Position, couleur: String){
+			use proxy: proxys.Proxy(nom)
+			use agent: agents.Agent(nom, position, couleur){
+				bind percevoirAgent to proxy.percevoirProxySpecy
+			}
+		}
+	}
+
 	component Logger {
 		provides log: ILog
 	}

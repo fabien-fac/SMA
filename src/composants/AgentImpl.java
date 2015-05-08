@@ -2,7 +2,7 @@ package composants;
 
 import interfaces.IActionsAgent;
 import interfaces.IInfos;
-import SMA.System.Agent;
+import SMA.Agents.Agent;
 import classes.Position;
 import enums.Types;
 
@@ -23,13 +23,15 @@ public class AgentImpl extends Agent implements IActionsAgent, IInfos{
 	}
 
 	@Override
-	protected IInfos make_infosService() {
-		return (IInfos) this;
+	protected IInfos make_infosAgent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	protected IActionsAgent make_actionAgentService() {
-		return this;
+	protected IActionsAgent make_actionsAgent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -79,4 +81,5 @@ public class AgentImpl extends Agent implements IActionsAgent, IInfos{
 	public int getEnergie() {
 		return energie;
 	}
+
 }
