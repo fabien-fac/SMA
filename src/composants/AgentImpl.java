@@ -6,7 +6,7 @@ import SMA.Agents.Agent;
 import classes.Position;
 import enums.Types;
 
-public class AgentImpl extends Agent implements IActionsAgent, IInfos{
+public class AgentImpl extends Agent{
 	
 	private final int INITIAL_ENERGIE = 100;
 	
@@ -24,62 +24,63 @@ public class AgentImpl extends Agent implements IActionsAgent, IInfos{
 
 	@Override
 	protected IInfos make_infosAgent() {
-		// TODO Auto-generated method stub
-		return null;
+		return new IInfos() {
+			
+			@Override
+			public String getType() {
+				return Types.AGENT.toString();
+			}
+			
+			@Override
+			public Position getPosition() {
+				return position;
+			}
+			
+			@Override
+			public String getNom() {
+				return nom;
+			}
+			
+			@Override
+			public int getEnergie() {
+				return energie;
+			}
+			
+			@Override
+			public String getCouleur() {
+				return couleur;
+			}
+		};
 	}
 
 	@Override
 	protected IActionsAgent make_actionsAgent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return new IActionsAgent() {
+			
+			@Override
+			public void deplacer(Position _position) {
+				System.out.println("new position : " + _position.getX() + ", " + _position.getY());
+				position = _position;
+			}
 
-	@Override
-	public void deplacer(Position position) {
-		System.out.println("new position : " + position.getX() + ", " + position.getY());
-		this.position = position;
-	}
+			@Override
+			public void prendreBoite() {
+				// TODO Auto-generated method stub
+				
+			}
 
-	@Override
-	public void prendreBoite() {
-		// TODO Auto-generated method stub
-		
-	}
+			@Override
+			public void deposerBoite() {
+				// TODO Auto-generated method stub
+				
+			}
 
-	@Override
-	public void deposerBoite() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void suicide() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Position getPosition() {
-		return position;
-	}
-
-	@Override
-	public String getCouleur() {
-		return couleur;
-	}
-
-	@Override
-	public String getNom() {
-		return nom;
-	}
-
-	@Override
-	public String getType() {
-		return Types.AGENT.toString();
-	}
-
-	public int getEnergie() {
-		return energie;
+			@Override
+			public void suicide() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 	}
 
 }

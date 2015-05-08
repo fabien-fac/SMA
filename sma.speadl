@@ -1,18 +1,16 @@
 import classes.Position
 import interfaces.IActionsAgent
-import interfaces.ICreateElement
+import interfaces.ICreateAgent
+import interfaces.ICreateProxyAgent
 import interfaces.IInfos
 import interfaces.ILog
 import interfaces.IPercevoir
 
-//import interfaces.TypeDeServicePasTerrible
-//
 namespace SMA {
 
 	ecosystem Agents {
 
-		provides createElement: ICreateElement
-		//requires percevoirAgents: IPercevoir
+		provides createElement: ICreateAgent
 
 		species Agent(nom: String, position: Position, couleur: String) {
 			provides infosAgent: IInfos
@@ -23,10 +21,10 @@ namespace SMA {
 	
 	ecosystem ProxysAgent {
 		
-		provides createProxyAgent: ICreateElement
+		provides createProxyAgent: ICreateProxyAgent
 		requires percevoirProxy: IPercevoir
 		
-		species Proxy(nomAgent: String){
+		species ProxyAgent(nomAgent: String){
 			provides percevoirProxySpecy: IPercevoir
 		}
 	}
@@ -44,7 +42,7 @@ namespace SMA {
 		part agents: Agents
 		
 		species AgentAvecProxy(nom: String, position: Position, couleur: String){
-			use proxy: proxys.Proxy(nom)
+			use proxy: proxys.ProxyAgent(nom)
 			use agent: agents.Agent(nom, position, couleur){
 				bind percevoirAgent to proxy.percevoirProxySpecy
 			}
@@ -54,21 +52,5 @@ namespace SMA {
 	component Logger {
 		provides log: ILog
 	}
-
-	//	component ServerComponentType {
-	//		provides unServicePasSiMal : TypeDeServicePasTerrible
-	//	}
-	//	
-	//	component BigComponentType {
-	//		provides unServiceQuiDechire : TypeDeServiceSuperChouette = client.unServiceSuperChouette
-	//		
-	//		part  client: ClientComponentType {
-	//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
-	//			}
-	//		part server : ServerComponentType
-	//		part autreClient : ClientComponentType {
-	//			bind unServiceBasiqueBofBof to server.unServicePasSiMal
-	//		}
-	//	}
 
 }
