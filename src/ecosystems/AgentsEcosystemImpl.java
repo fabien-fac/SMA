@@ -1,12 +1,18 @@
 package ecosystems;
 
 import interfaces.ICreateAgent;
+import interfaces.IGetAgent;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import SMA.Agents;
 import classes.Position;
-
 import composants.AgentImpl;
 
 public class AgentsEcosystemImpl extends Agents{
+	
+	Map<String, AgentImpl> agents = new HashMap<>();
 
 	@Override
 	protected ICreateAgent make_createElement() {
@@ -21,7 +27,28 @@ public class AgentsEcosystemImpl extends Agents{
 
 	@Override
 	protected Agent make_Agent(String nom, Position position, String couleur) {
-		return new AgentImpl(nom, position, couleur);
+		AgentImpl agentImpl = new AgentImpl(nom, position, couleur);
+		
+		if(!agents.containsKey(nom)){
+			agents.put(nom, agentImpl);
+		}
+		
+		return agentImpl;
+	}
+
+	@Override
+	protected IGetAgent make_getElement() {
+		return new IGetAgent() {
+			
+			@Override
+			public AgentImpl getAgent(String nom) {
+				if(agents.containsKey(nom)){
+					return agents.get(nom);
+				}
+				
+				return null;
+			}
+		};
 	}
 
 }

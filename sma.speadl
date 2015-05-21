@@ -1,16 +1,20 @@
 import classes.Position
 import interfaces.IActionsAgent
 import interfaces.ICreateAgent
+import interfaces.ICreateAgentAvecProxy
 import interfaces.ICreateProxyAgent
+import interfaces.IGetAgent
 import interfaces.IInfos
 import interfaces.ILog
 import interfaces.IPercevoir
+import interfaces.IControl
 
 namespace SMA {
 
 	ecosystem Agents {
 
 		provides createElement: ICreateAgent
+		provides getElement: IGetAgent
 
 		species Agent(nom: String, position: Position, couleur: String) {
 			provides infosAgent: IInfos
@@ -33,6 +37,7 @@ namespace SMA {
 		
 		provides infos: IInfos
 		provides actionsAgentsProxy: IActionsAgent
+		provides createAgentAvecProxy: ICreateAgentAvecProxy
 		requires percevoirAP: IPercevoir
 		
 		part proxys: ProxysAgent{
@@ -51,6 +56,25 @@ namespace SMA {
 
 	component Logger {
 		provides log: ILog
+	}
+	
+	component System {
+		provides perceptionSystem : IPercevoir
+		provides control: IControl
+		requires createAgents: ICreateAgentAvecProxy
+	}
+	
+	component BigComponent {
+		provides control: IControl
+		
+		part system: System{
+			bind createAgents to agents.createAgentAvecProxy
+		}
+		
+		part agents : AgentsAvecProxyEcosystem{
+			bind percevoirAP to system.perceptionSystem
+		}
+		
 	}
 
 }

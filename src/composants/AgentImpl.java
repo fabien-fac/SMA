@@ -23,7 +23,7 @@ public class AgentImpl extends Agent{
 	}
 
 	@Override
-	protected IInfos make_infosAgent() {
+	public IInfos make_infosAgent() {
 		return new IInfos() {
 			
 			@Override
