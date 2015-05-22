@@ -1,7 +1,5 @@
 package classes;
 
-import SMA.BigComponent.Component;
-
 import composants.BigComponentImpl;
 
 
@@ -11,7 +9,18 @@ public class Main {
 		
 		SMA.BigComponent.Component bigComponent = new BigComponentImpl().newComponent();
 		bigComponent.control().lancerSystem();
+		
+		
+		bigComponent.control().changeVitesse(200);
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		bigComponent.control().changeVitesse(2000);
 		
 		//		SMA.AgentsAvecProxyEcosystem.Component agents = new AgentsAvecProxyEcosystemImpl()._newComponent(b, start)
 //		Component logger = new LoggerImpl().newComponent();

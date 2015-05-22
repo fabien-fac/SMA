@@ -1,5 +1,7 @@
 package composants;
 
+import java.util.List;
+
 import interfaces.IActionsAgent;
 import interfaces.IInfos;
 import SMA.Agents.Agent;
@@ -14,6 +16,12 @@ public class AgentImpl extends Agent{
 	private int energie;
 	private String couleur;
 	private Position position;
+	
+	private int vitesse = 1000;
+	private boolean actif = true;
+	private boolean pasAPas;
+	
+	private IInfos boitePossede = null;
 	
 	public AgentImpl(String nom, Position position, String couleur) {
 		this.nom = nom;
@@ -54,33 +62,60 @@ public class AgentImpl extends Agent{
 	}
 
 	@Override
-	protected IActionsAgent make_actionsAgent() {
+	public IActionsAgent make_actionsAgent() {
 		return new IActionsAgent() {
+
+			@Override
+			public void setVitesse(int _vitesse) {
+				vitesse = _vitesse;
+				System.out.println("new vitesse : " + vitesse);
+			}
+
+			@Override
+			public void setPasAPas(boolean actif) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setPause(boolean actif) {
+				// TODO Auto-generated method stub
+				
+			}
 			
-			@Override
-			public void deplacer(Position _position) {
-				System.out.println("new position : " + _position.getX() + ", " + _position.getY());
-				position = _position;
-			}
-
-			@Override
-			public void prendreBoite() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void deposerBoite() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void suicide() {
-				// TODO Auto-generated method stub
-				
-			}
 		};
 	}
+	
+	@Override
+	protected void start() {
+		new Thread(){
+			public void run() {
+				while(true){
+					if(actif){
+						agir();
+					}
+					System.out.println(nom);
+					try {
+						System.out.println("vitesse : " + vitesse);
+						Thread.sleep(vitesse);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}.start();
+		
+	}
+	
+	private void agir() {
+		System.out.print("Perception de " + nom + ": ");
+		List<IInfos> infosElementAutour = requires().percevoirAgent().getInfosElementAutour(position);
+		for(IInfos element : infosElementAutour){
+			System.out.print("[(" + element.getType() +") " + element.getNom() +"]");
+		}
+		
+	};
 
 }

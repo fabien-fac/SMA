@@ -8,6 +8,7 @@ import interfaces.IInfos
 import interfaces.ILog
 import interfaces.IPercevoir
 import interfaces.IControl
+import interfaces.IInfosAgents
 
 namespace SMA {
 
@@ -35,7 +36,7 @@ namespace SMA {
 	
 	ecosystem AgentsAvecProxyEcosystem {
 		
-		provides infos: IInfos
+		provides infosSurAgents: IInfosAgents
 		provides actionsAgentsProxy: IActionsAgent
 		provides createAgentAvecProxy: ICreateAgentAvecProxy
 		requires percevoirAP: IPercevoir
@@ -62,6 +63,7 @@ namespace SMA {
 		provides perceptionSystem : IPercevoir
 		provides control: IControl
 		requires createAgents: ICreateAgentAvecProxy
+		requires actionsSurAgents: IActionsAgent
 	}
 	
 	component BigComponent {
@@ -69,6 +71,7 @@ namespace SMA {
 		
 		part system: System{
 			bind createAgents to agents.createAgentAvecProxy
+			bind actionsSurAgents to agents.actionsAgentsProxy
 		}
 		
 		part agents : AgentsAvecProxyEcosystem{
