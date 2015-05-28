@@ -9,6 +9,7 @@ import interfaces.ILog
 import interfaces.IPercevoir
 import interfaces.IControl
 import interfaces.IInfosAgents
+import interfaces.IInfosGrille
 
 namespace SMA {
 
@@ -62,8 +63,13 @@ namespace SMA {
 	component System {
 		provides perceptionSystem : IPercevoir
 		provides control: IControl
+		provides infosGrille: IInfosGrille
 		requires createAgents: ICreateAgentAvecProxy
 		requires actionsSurAgents: IActionsAgent
+	}
+	
+	component IHM {
+		requires infosGrille: IInfosGrille
 	}
 	
 	component BigComponent {
@@ -78,6 +84,11 @@ namespace SMA {
 			bind percevoirAP to system.perceptionSystem
 		}
 		
+		part ihm : IHM{
+			bind infosGrille to system.infosGrille
+		}
+		
 	}
+	
 
 }
