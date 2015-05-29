@@ -95,6 +95,7 @@ namespace SMA {
 	
 	component IHM {
 		provides infosLog: IInfosSetLog
+		requires controlIHM: IControl
 	}
 	
 	component BigComponent {
@@ -116,7 +117,9 @@ namespace SMA {
 			bind logsEntrant to system.infosLog
 		}
 		
-		part ihm : IHM
+		part ihm : IHM{
+			bind controlIHM to system.control
+		}
 		
 	}
 	
