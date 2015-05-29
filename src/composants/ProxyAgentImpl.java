@@ -1,5 +1,6 @@
 package composants;
 
+import interfaces.IDemandeActionsAgent;
 import interfaces.IPercevoir;
 import SMA.ProxysAgent.ProxyAgent;
 
@@ -18,5 +19,10 @@ public class ProxyAgentImpl extends ProxyAgent{
 
 	public String getNomAgent() {
 		return nomAgent;
+	}
+
+	@Override
+	protected IDemandeActionsAgent make_demandeActionProxySpecy() {
+		return eco_requires().demandeActionFromProxy();
 	}
 }

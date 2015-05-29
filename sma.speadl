@@ -1,15 +1,19 @@
 import classes.Position
 import interfaces.IActionsAgent
+import interfaces.IControl
 import interfaces.ICreateAgent
 import interfaces.ICreateAgentAvecProxy
+import interfaces.ICreateLogger
 import interfaces.ICreateProxyAgent
+import interfaces.IDemandeActionsAgent
+import interfaces.IGestionLogger
 import interfaces.IGetAgent
 import interfaces.IInfos
-import interfaces.ILog
-import interfaces.IPercevoir
-import interfaces.IControl
 import interfaces.IInfosAgents
-import interfaces.IInfosGrille
+import interfaces.IInfosGetLog
+import interfaces.IInfosSetLog
+import interfaces.IPercevoir
+import interfaces.ISignalLog
 
 namespace SMA {
 
@@ -22,6 +26,7 @@ namespace SMA {
 			provides infosAgent: IInfos
 			provides actionsAgent: IActionsAgent
 			requires percevoirAgent: IPercevoir
+			requires demandeAction: IDemandeActionsAgent
 		}
 	}
 	
@@ -29,9 +34,11 @@ namespace SMA {
 		
 		provides createProxyAgent: ICreateProxyAgent
 		requires percevoirProxy: IPercevoir
+		requires demandeActionFromProxy: IDemandeActionsAgent
 		
 		species ProxyAgent(nomAgent: String){
 			provides percevoirProxySpecy: IPercevoir
+			provides demandeActionProxySpecy: IDemandeActionsAgent
 		}
 	}
 	
@@ -41,9 +48,11 @@ namespace SMA {
 		provides actionsAgentsProxy: IActionsAgent
 		provides createAgentAvecProxy: ICreateAgentAvecProxy
 		requires percevoirAP: IPercevoir
+		requires demandeActionAP: IDemandeActionsAgent
 		
 		part proxys: ProxysAgent{
 			bind percevoirProxy to percevoirAP
+			bind demandeActionFromProxy to demandeActionAP
 		}
 		
 		part agents: Agents
@@ -52,41 +61,62 @@ namespace SMA {
 			use proxy: proxys.ProxyAgent(nom)
 			use agent: agents.Agent(nom, position, couleur){
 				bind percevoirAgent to proxy.percevoirProxySpecy
+				bind demandeAction to proxy.demandeActionProxySpecy
 			}
 		}
 	}
+	
+	ecosystem LogDispatcherEcosystem {
+		
+		provides signalLog: ISignalLog
+		provides createLogger: ICreateLogger
+		requires logsEntrant: IInfosGetLog
+		
+		species ProxyLog(destinatairLog: IInfosSetLog){
+			requires logsSortant: IInfosSetLog
+		}
+		
+	}
 
 	component Logger {
-		provides log: ILog
+		provides log: IInfosSetLog
 	}
 	
 	component System {
 		provides perceptionSystem : IPercevoir
 		provides control: IControl
-		provides infosGrille: IInfosGrille
+		provides infosLog: IInfosGetLog
+		provides actionsSurAgent: IDemandeActionsAgent
 		requires createAgents: ICreateAgentAvecProxy
 		requires actionsSurAgents: IActionsAgent
+		
+		requires signalLog: ISignalLog 
 	}
 	
 	component IHM {
-		requires infosGrille: IInfosGrille
+		provides infosLog: IInfosSetLog
 	}
 	
 	component BigComponent {
 		provides control: IControl
+		provides gestionLogger: IGestionLogger
 		
 		part system: System{
 			bind createAgents to agents.createAgentAvecProxy
 			bind actionsSurAgents to agents.actionsAgentsProxy
+			bind signalLog to logDispatcher.signalLog
 		}
 		
 		part agents : AgentsAvecProxyEcosystem{
 			bind percevoirAP to system.perceptionSystem
+			bind demandeActionAP to system.actionsSurAgent
 		}
 		
-		part ihm : IHM{
-			bind infosGrille to system.infosGrille
+		part logDispatcher: LogDispatcherEcosystem{
+			bind logsEntrant to system.infosLog
 		}
+		
+		part ihm : IHM
 		
 	}
 	

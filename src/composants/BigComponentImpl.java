@@ -1,11 +1,15 @@
 package composants;
 
 import interfaces.IControl;
+import interfaces.IGestionLogger;
+import interfaces.IInfosSetLog;
 import SMA.AgentsAvecProxyEcosystem;
 import SMA.BigComponent;
 import SMA.IHM;
+import SMA.LogDispatcherEcosystem;
 import SMA.System;
 import ecosystems.AgentsAvecProxyEcosystemImpl;
+import ecosystems.LogDispactcherEcosystemImpl;
 
 public class BigComponentImpl extends BigComponent{
 
@@ -27,6 +31,22 @@ public class BigComponentImpl extends BigComponent{
 	@Override
 	protected IHM make_ihm() {
 		return new IHMImpl();
+	}
+
+	@Override
+	protected LogDispatcherEcosystem make_logDispatcher() {
+		return new LogDispactcherEcosystemImpl();
+	}
+
+	@Override
+	protected IGestionLogger make_gestionLogger() {
+		return new IGestionLogger() {
+			
+			@Override
+			public void ajoutLogger(IInfosSetLog newLogger) {
+				parts().logDispatcher().createLogger().createNewLogger(newLogger);
+			}
+		};
 	}
 
 }

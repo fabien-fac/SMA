@@ -8,12 +8,13 @@ import java.util.Map;
 
 import SMA.Agents;
 import classes.Position;
+
 import composants.AgentImpl;
 
 public class AgentsEcosystemImpl extends Agents{
 	
-	Map<String, AgentImpl> agents = new HashMap<>();
-
+	private Map<String, AgentImpl> agents = new HashMap<>();
+	
 	@Override
 	protected ICreateAgent make_createElement() {
 		return new ICreateAgent() {

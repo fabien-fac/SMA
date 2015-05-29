@@ -1,20 +1,32 @@
 package composants;
 
-import java.util.Date;
-
-import interfaces.ILog;
+import interfaces.IInfos;
+import interfaces.IInfosSetLog;
 import SMA.Logger;
+import classes.Position;
 
 public class LoggerImpl extends Logger{
 
 	@Override
-	protected ILog make_log() {
-		return new ILog() {
+	protected IInfosSetLog make_log() {
+		return new IInfosSetLog() {
 			
 			@Override
-			public void addLog(String log) {
-				Date date = new Date();
-				System.out.println("["+date.toString()+"] " + log);
+			public void setInfoPrendreBoite(IInfos agent, IInfos boite) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoites) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 	}

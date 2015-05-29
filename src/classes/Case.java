@@ -47,13 +47,35 @@ public class Case {
 		return false;
 	}
 	
+	public boolean contientBoite(IInfos boite){
+		for(IInfos info : elements){
+			if(info.getType().equals(Types.BOITE.toString())
+					&& info.getNom().equals(boite.getNom())){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public boolean contientAgent(){
 		for(IInfos info : elements){
+			System.out.println("type: " + info.getType());
 			if(info.getType().equals(Types.AGENT.toString())){
 				return true;
 			}
 		}
 		
 		return false;
+	}
+
+	public void retirerElement(IInfos boite) {
+		List<IInfos> newElements = new ArrayList<IInfos>();
+		for(IInfos info : elements){
+			if(info.getNom().equals(boite.getNom())){
+				newElements.add(info);
+			}
+		}
+		elements = newElements;
 	}
 }
