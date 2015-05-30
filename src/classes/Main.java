@@ -1,7 +1,6 @@
 package classes;
 
 import composants.BigComponentImpl;
-import composants.IHMImpl;
 import composants.LoggerImpl;
 
 
@@ -16,8 +15,6 @@ public class Main {
 		bigComponent.control().setNombreAgents(10);
 		
 		
-		IHMImpl ihmImpl = new IHMImpl();
-		bigComponent.gestionLogger().ajoutLogger(ihmImpl.getInfosSetLog());
 		LoggerImpl logger = new LoggerImpl();
 		bigComponent.gestionLogger().ajoutLogger(logger.getInfosSetLog());
 		
