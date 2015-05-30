@@ -147,6 +147,8 @@ public class SystemImpl extends SMA.System{
 				placerNids();
 				placerBoites();
 				placerAgents();
+				
+				avertireLoggers();
 			}
 
 			@Override
@@ -340,5 +342,20 @@ public class SystemImpl extends SMA.System{
 		}
 	}
 
+	private void avertireLoggers() {
+		Action action = new Action();
+		action.setAction(Actions.INITIALISATION);
+		List<IInfos> infos = new ArrayList<IInfos>();
+		for (int i = 0; i < nbLignes; i++) {
+			for (int y = 0; y < nbColonnes; y++) {
+				Case c = grille[i][y];
+				if(!c.caseVide()){
+					infos.addAll(c.getElements());
+				}
+			}
+		}
+		action.setNouveauxElements(infos);
+		addAction(action);
+	}
 
 }

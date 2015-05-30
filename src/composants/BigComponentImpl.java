@@ -48,5 +48,10 @@ public class BigComponentImpl extends BigComponent{
 			}
 		};
 	}
+	
+	@Override
+	protected void start() {
+		provides().gestionLogger().ajoutLogger(parts().ihm().infosLog());
+	}
 
 }

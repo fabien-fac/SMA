@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import SMA.Logger;
 import classes.Position;
@@ -103,6 +104,18 @@ public class LoggerImpl extends Logger{
 				}
 				
 				ecrireLog(sb.toString());
+			}
+
+			@Override
+			public void setInfosInitiales(List<IInfos> infosInitiales) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setNouveauElement(IInfos nouveauElement) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 	}

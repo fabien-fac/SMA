@@ -40,6 +40,15 @@ public class LogDispactcherEcosystemImpl extends LogDispatcherEcosystem {
 						case DEPOSER_BOITE:
 							logger.setInfoDeposerBoite(action.getAgent(),
 									action.getBoite(), action.getNid());
+							break;
+						case INITIALISATION:
+							logger.setInfosInitiales(action
+									.getNouveauxElements());
+							break;
+						case NOUVEL_ELEMENT:
+							logger.setNouveauElement(action
+									.getNouveauxElements().get(0));
+							break;
 						default:
 							break;
 						}
