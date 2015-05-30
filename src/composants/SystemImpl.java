@@ -18,6 +18,9 @@ import enums.Couleurs;
 
 public class SystemImpl extends SMA.System{
 	
+	private final int INITIAL_ENERGIE_AGENT = 100;
+	private int initalVitesseAgent = 1000;
+	
 	private int ecartEntreNids = 2;
 	private int nbLignes = 50;
 	private int nbColonnes = 50;
@@ -142,6 +145,7 @@ public class SystemImpl extends SMA.System{
 			
 			@Override
 			public void changeVitesse(int vitesse) {
+				initalVitesseAgent = vitesse;
 				requires().actionsSurAgents().setVitesse(vitesse);
 			}
 
@@ -256,7 +260,12 @@ public class SystemImpl extends SMA.System{
 					if(!c.contientBoite()){
 						c.addElement(boite);
 						
-						energie = 10;
+						if(agent.getCouleur().equals(boite.getCouleur())){
+							energie = 2*INITIAL_ENERGIE_AGENT/3;
+						}
+						else{
+							energie = INITIAL_ENERGIE_AGENT/3;
+						}
 					}
 				}
 				
@@ -310,6 +319,29 @@ public class SystemImpl extends SMA.System{
 			@Override
 			public List<IInfos> getListNids() {
 				return nids;
+			}
+
+			@Override
+			public int getInitialEnergie() {
+				return INITIAL_ENERGIE_AGENT;
+			}
+
+			@Override
+			public void suicide(IInfos agent) {
+				synchronized (lockGrille) {
+					grille[agent.getPosition().getX()][agent.getPosition().getY()].retirerElement(agent);
+				}
+
+				Action action = new Action();
+				action.setAction(Actions.SUICIDE_AGENT);
+				action.setAgent(agent);
+				
+				addAction(action);
+			}
+
+			@Override
+			public int getVitesse() {
+				return initalVitesseAgent;
 			}
 		};
 	}

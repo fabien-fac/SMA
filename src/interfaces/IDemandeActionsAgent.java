@@ -10,4 +10,7 @@ public interface IDemandeActionsAgent {
 	public boolean prendreBoite(IInfos agent, IInfos boite);
 	public int deposerBoite(IInfos agent, IInfos boite, IInfos nid);
 	public List<IInfos> getListNids();
+	public int getInitialEnergie();
+	public void suicide(IInfos agent);
+	public int getVitesse();
 }

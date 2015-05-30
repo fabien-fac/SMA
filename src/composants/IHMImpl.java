@@ -1,13 +1,13 @@
 package composants;
 
+import interfaces.IInfos;
+import interfaces.IInfosSetLog;
+
 import java.util.List;
 
 import sma_ihm.IhmFrame;
-import classes.Position;
-import interfaces.IControl;
-import interfaces.IInfos;
-import interfaces.IInfosSetLog;
 import SMA.IHM;
+import classes.Position;
 
 public class IHMImpl extends IHM {
 	private IhmFrame ihmFrame;
@@ -43,6 +43,12 @@ public class IHMImpl extends IHM {
 			public void setNouveauElement(IInfos nouveauElement) {
 				// TODO Auto-generated method stub
 
+			}
+
+			@Override
+			public void suicideAgent(IInfos agent) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		};

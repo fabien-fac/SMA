@@ -49,6 +49,9 @@ public class LogDispactcherEcosystemImpl extends LogDispatcherEcosystem {
 							logger.setNouveauElement(action
 									.getNouveauxElements().get(0));
 							break;
+						case SUICIDE_AGENT:
+							logger.suicideAgent(action.getAgent());
+							break;
 						default:
 							break;
 						}

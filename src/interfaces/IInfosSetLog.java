@@ -10,4 +10,5 @@ public interface IInfosSetLog {
 	public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid);
 	public void setInfosInitiales(List<IInfos> infosInitiales);
 	public void setNouveauElement(IInfos nouveauElement);
+	public void suicideAgent(IInfos agent);
 }

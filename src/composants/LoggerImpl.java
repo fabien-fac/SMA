@@ -35,7 +35,6 @@ public class LoggerImpl extends Logger{
 			dateLog = dateLog.replace("/", "-");
 			dateLog = dateLog.replace(":", "-");
 			
-			
 			String fileName = currentDirectory+baseName+dateLog;
 			System.out.println("Log file : " + fileName);
 			
@@ -115,8 +114,23 @@ public class LoggerImpl extends Logger{
 
 			@Override
 			public void setNouveauElement(IInfos nouveauElement) {
-				// TODO Auto-generated method stub
-				
+				StringBuilder sb = new StringBuilder();
+				sb.append("Ajout de l'element ");
+				sb.append(nouveauElement.getNom());
+				sb.append(" à la position : ");
+				sb.append(nouveauElement.getPosition().getX());
+				sb.append(", ");
+				sb.append(nouveauElement.getPosition().getY());
+				ecrireLog(sb.toString());
+			}
+
+			@Override
+			public void suicideAgent(IInfos agent) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("L'agent ");
+				sb.append(agent.getNom());
+				sb.append(" est mort");
+				ecrireLog(sb.toString());
 			}
 		};
 	}

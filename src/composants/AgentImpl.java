@@ -14,8 +14,6 @@ import enums.Types;
 
 public class AgentImpl extends Agent {
 
-	private final int INITIAL_ENERGIE = 100;
-
 	private String nom;
 	private int energie;
 	private String couleur;
@@ -23,7 +21,6 @@ public class AgentImpl extends Agent {
 
 	private int vitesse = 1000;
 	private boolean actif = true;
-	private boolean pasAPas;
 
 	private IInfos boitePossede = null;
 	private Map<String, IInfos> nids = new HashMap<String, IInfos>();
@@ -32,7 +29,6 @@ public class AgentImpl extends Agent {
 		this.nom = nom;
 		this.position = position;
 		this.couleur = couleur;
-		this.energie = INITIAL_ENERGIE;
 	}
 
 	@Override
@@ -82,9 +78,8 @@ public class AgentImpl extends Agent {
 			}
 
 			@Override
-			public void setPause(boolean actif) {
-				// TODO Auto-generated method stub
-
+			public void setPause(boolean _actif) {
+				actif = !_actif;
 			}
 
 		};
@@ -94,13 +89,16 @@ public class AgentImpl extends Agent {
 	protected void start() {
 
 		List<IInfos> nidsList = requires().demandeAction().getListNids();
+		energie = requires().demandeAction().getInitialEnergie();
+		vitesse = requires().demandeAction().getVitesse();
+		
 		for (IInfos nid : nidsList) {
 			nids.put(nid.getCouleur(), nid);
 		}
 
 		new Thread() {
 			public void run() {
-				while (true) {
+				while (energie > 0) {
 					if (actif) {
 						agir();
 					}
@@ -213,6 +211,7 @@ public class AgentImpl extends Agent {
 		if (requires().demandeAction().deplacer(make_infosAgent(), newPosition,
 				true)) {
 			position = newPosition;
+			reduireEnergie(1);
 		}
 	}
 
@@ -239,6 +238,14 @@ public class AgentImpl extends Agent {
 		Position pos = new Position(randX, randY);
 		if (requires().demandeAction().deplacer(make_infosAgent(), pos, false)) {
 			position = pos;
+			reduireEnergie(1);
+		}
+	}
+
+	private void reduireEnergie(int i) {
+		energie -=i;
+		if(energie <= 0){
+			requires().demandeAction().suicide(make_infosAgent());
 		}
 	}
 
@@ -280,9 +287,8 @@ public class AgentImpl extends Agent {
 	private void deposerBoite(IInfos nid) {
 		int newEnergie = requires().demandeAction().deposerBoite(
 				make_infosAgent(), boitePossede, nid);
-		System.out.println("energie recu :" + newEnergie);
 		if (energie > 0) {
-			energie = newEnergie;
+			energie += newEnergie;
 			boitePossede = null;
 		}
 	}
