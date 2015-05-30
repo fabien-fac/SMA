@@ -37,7 +37,7 @@ public class LoggerImpl extends Logger{
 			
 			
 			String fileName = currentDirectory+baseName+dateLog;
-			System.out.println("file : " + fileName);
+			System.out.println("Log file : " + fileName);
 			
 			File file = new File(fileName);
 			

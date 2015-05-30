@@ -32,7 +32,6 @@ public class GrillePanel extends javax.swing.JPanel {
         nbColonne = colonnes;
         dimensionCase = calculTailleCase();
         setLayout(new GridLayout(lignes, colonnes, 0, 0));
-        System.out.println("Creation de la grille");
         casePanelTable = new CasePanel[nbLigne][nbColonne];
         for(int colonne = 0; colonne < nbColonne; colonne ++) {
             for(int ligne = 0; ligne < nbLigne; ligne ++) {
@@ -90,7 +89,6 @@ public class GrillePanel extends javax.swing.JPanel {
 	 */
 	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
 		Position p = agent.getPosition();
-		System.out.println("Tu bouge x: "+p.getX() + " y: "+ p.getY());
 		if(possedeBoite) {
 			casePanelTable[p.getX()][p.getY()].effacerTraceRobotBoite();;
 	    	casePanelTable[position.getX()][position.getY()].setInfoDeplacerRobotBoite(agent);

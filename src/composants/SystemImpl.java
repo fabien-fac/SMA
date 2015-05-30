@@ -117,6 +117,9 @@ public class SystemImpl extends SMA.System{
 			public List<IInfos> getInfosElementAPosition(Position position) {
 				List<IInfos> infos = new ArrayList<IInfos>();
 				
+				if(isValidPosition(position)){
+					infos.addAll(grille[position.getX()][position.getY()].getElements());
+				}
 				return infos;
 			}
 			
@@ -354,6 +357,7 @@ public class SystemImpl extends SMA.System{
 				}
 			}
 		}
+		
 		action.setNouveauxElements(infos);
 		addAction(action);
 	}

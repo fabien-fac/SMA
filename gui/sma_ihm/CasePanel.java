@@ -134,8 +134,6 @@ public class CasePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-
-        System.out.println("Tu click sur la case x: "+abscisseCase + " y: "+ ordonneeCase);
         test.updateInformation(infoList, new Position(abscisseCase,ordonneeCase));
     }//GEN-LAST:event_formMouseReleased
 

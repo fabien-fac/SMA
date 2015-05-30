@@ -33,8 +33,6 @@ public class AgentsEcosystemImpl extends Agents{
 		if(!agents.containsKey(nom)){
 			agentImpl = new AgentImpl(nom, position, couleur);
 			agents.put(nom, agentImpl);
-			
-			System.out.println("Création agent "+ nom +" " + couleur);
 		}
 		
 		return agentImpl;

@@ -11,8 +11,8 @@ public class Main {
 		SMA.BigComponent.Component bigComponent = new BigComponentImpl().newComponent();
 		
 		bigComponent.control().changeVitesse(1000);
-		bigComponent.control().setNombreBoites(5);
-		bigComponent.control().setNombreAgents(10);
+		bigComponent.control().setNombreBoites(25);
+		bigComponent.control().setNombreAgents(1);
 		
 		LoggerImpl logger = new LoggerImpl();
 		bigComponent.gestionLogger().ajoutLogger(logger.getInfosSetLog());
