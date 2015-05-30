@@ -6,6 +6,8 @@ import interfaces.IInfosSetLog;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,6 +22,10 @@ public class LoggerImpl extends Logger{
 	
 	public LoggerImpl() {
 		try {
+			
+			Path currentRelativePath = Paths.get("");
+			String currentDirectory = currentRelativePath.toAbsolutePath().toString();
+			
 			dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 			Date date = new Date();
@@ -27,9 +33,11 @@ public class LoggerImpl extends Logger{
 			dateLog = dateLog.replace(" ", "_");
 			dateLog = dateLog.replace("/", "-");
 			
-			dateLog = baseName+dateLog;
 			
-			File file = new File(baseName+dateLog);
+			String fileName = currentDirectory+baseName+dateLog;
+			System.out.println("file : " + fileName);
+			
+			File file = new File(fileName);
 			
 			writer = new PrintWriter(file, "UTF-8");
 			
