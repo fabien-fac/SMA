@@ -51,8 +51,15 @@ public class GrillePanel extends javax.swing.JPanel {
     }
     
     public void setInfoCase(List<IInfos> info) {
-        Position p = info.get(0).getPosition();
-        casePanelTable[p.getX()][p.getY()].setInfos(info);
+    	for (IInfos iInfos : info) {
+    		Position p = iInfos.getPosition();
+            casePanelTable[p.getX()][p.getY()].setInfos(iInfos);
+		}
+    }
+    
+    public void setInfoCase(IInfos info) {
+    		Position p = info.getPosition();
+            casePanelTable[p.getX()][p.getY()].setInfos(info);
     }
     
     /**
@@ -83,15 +90,17 @@ public class GrillePanel extends javax.swing.JPanel {
 	 */
 	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
 		Position p = agent.getPosition();
+		System.out.println("Tu bouge x: "+p.getX() + " y: "+ p.getY());
 		if(possedeBoite) {
-			casePanelTable[p.getX()][p.getY()].setInfoDeplacerRobot(agent);
-	    	casePanelTable[position.getX()][position.getY()].effacerTraceRobot();
+			casePanelTable[p.getX()][p.getY()].effacerTraceRobotBoite();;
+	    	casePanelTable[position.getX()][position.getY()].setInfoDeplacerRobotBoite(agent);
 		} else {
-			casePanelTable[p.getX()][p.getY()].setInfoDeplacerRobotBoite(agent);
-	    	casePanelTable[position.getX()][position.getY()].effacerTraceRobotBoite();
+			casePanelTable[p.getX()][p.getY()].effacerTraceRobot();;
+	    	casePanelTable[position.getX()][position.getY()].setInfoDeplacerRobot(agent);
 		}
     	
 	}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

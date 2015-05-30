@@ -53,22 +53,21 @@ public class CasePanel extends javax.swing.JPanel {
         add(robotLabel);
     }
 
-    public void setInfos(List<IInfos> info) {
-        infoList = info;
-        for (IInfos info1 : info) {
-            if (info1.getType().equals(Types.AGENT.toString())) {
-                robotLabel.setColorLabel(info1.getCouleur());
-                robotLabel.repaint();
-            } else if (info1.getType().equals(Types.BOITE.toString())) {
-                boiteLabel.setColorLabel(info1.getCouleur());
-            } else if (info1.getType().equals(Types.NID.toString())) {
-                if(info1.getCouleur().equals(Couleurs.ROUGE.toString())) {
-                        setBackground(Color.RED);
-                } else if(info1.getCouleur().equals(Couleurs.BLEU.toString())) {
-                        setBackground(Color.BLUE);
-                } else if(info1.getCouleur().equals(Couleurs.VERT.toString())) {
-                        setBackground(Color.GREEN);
-                }
+    public void setInfos(IInfos info) {
+        infoList.add(info);
+        if (info.getType().equals(Types.AGENT.toString())) {
+            robotLabel.setColorLabel(info.getCouleur());
+            robotLabel.repaint();
+        } else if (info.getType().equals(Types.BOITE.toString())) {
+            boiteLabel.setColorLabel(info.getCouleur());
+            boiteLabel.repaint();
+        } else if (info.getType().equals(Types.NID.toString())) {
+            if(info.getCouleur().equals(Couleurs.ROUGE.toString())) {
+                    setBackground(Color.RED);
+            } else if(info.getCouleur().equals(Couleurs.BLEU.toString())) {
+                    setBackground(Color.BLUE);
+            } else if(info.getCouleur().equals(Couleurs.VERT.toString())) {
+                    setBackground(Color.GREEN);
             }
         }
         validate();
@@ -82,7 +81,7 @@ public class CasePanel extends javax.swing.JPanel {
 	
 	public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid) {
 		robotLabel.setColorLabel(agent.getCouleur());
-		boiteLabel.setVisible(false);
+		boiteLabel.viderLabel();
 		validate();
 	}
 	
@@ -98,13 +97,13 @@ public class CasePanel extends javax.swing.JPanel {
 	}
 	
 	public void effacerTraceRobot () {
-		robotLabel.setVisible(false);
+		robotLabel.viderLabel();
 		validate();
 	}
 	
 	public void effacerTraceRobotBoite () {
-		robotLabel.setVisible(false);
-		boiteLabel.setVisible(false);
+		robotLabel.viderLabel();
+		boiteLabel.viderLabel();
 		validate();
 	}
 
@@ -137,7 +136,6 @@ public class CasePanel extends javax.swing.JPanel {
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
 
         System.out.println("Tu click sur la case x: "+abscisseCase + " y: "+ ordonneeCase);
-//        setBorder(BorderFactory.createLineBorder(Color.ORANGE));
         test.updateInformation(infoList, new Position(abscisseCase,ordonneeCase));
     }//GEN-LAST:event_formMouseReleased
 

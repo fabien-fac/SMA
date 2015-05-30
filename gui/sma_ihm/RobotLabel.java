@@ -17,14 +17,14 @@ import enums.Couleurs;
  */
 @SuppressWarnings("serial")
 public class RobotLabel extends JLabel{
-
+	private static final String stringRobot = "•";
     public RobotLabel() {
-        setText("•");        
-        setFont (getFont().deriveFont(15.0f));
         setVisible(false);
     }
     
     public void setColorLabel(String color) {
+		setText(stringRobot);        
+        setFont (getFont().deriveFont(15.0f));
         if(color.equals(Couleurs.ROUGE.toString())) {
                 setForeground(Color.RED);
         } else if(color.equals(Couleurs.BLEU.toString())) {
@@ -33,5 +33,10 @@ public class RobotLabel extends JLabel{
                 setForeground(Color.GREEN);
         }
         setVisible(true);
+    }
+    
+    public void viderLabel () {
+    	setText(" ");
+    	setForeground(Color.DARK_GRAY);
     }
 }

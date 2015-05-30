@@ -74,6 +74,14 @@ public class IhmFrame extends javax.swing.JFrame {
     }
     
     /**
+     * 
+     * @param info
+     */
+    public void setInfoCase(IInfos info) {
+        grille.setInfoCase(info);
+    }
+    
+    /**
      * Indique à l'ihm qu'un robot prend une boite
      * @param agent
      * @param boite

@@ -32,7 +32,7 @@ public class IHMImpl extends IHM{
 
 			@Override
 			public void setInfosInitiales(List<IInfos> infosInitiales) {
-				// TODO Auto-generated method stub
+				ihmFrame.setInfoCase(infosInitiales);
 				
 			}
 

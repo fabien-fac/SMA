@@ -18,14 +18,16 @@ import enums.Couleurs;
 @SuppressWarnings("serial")
 public class BoiteLabel extends JLabel{
 
-    public BoiteLabel() {
-        setText("♦");
-        
-        setFont (getFont().deriveFont(15.0f));
+    private static final String stringBoite = "♦";
+
+	public BoiteLabel() {
         setVisible(false);
     }
     
     public void setColorLabel(String color) {
+
+        setText(stringBoite);
+        setFont (getFont().deriveFont(15.0f));
         if(color.equals(Couleurs.ROUGE.toString())) {
                 setForeground(Color.RED);
         } else if(color.equals(Couleurs.BLEU.toString())) {
@@ -34,5 +36,11 @@ public class BoiteLabel extends JLabel{
                 setForeground(Color.GREEN);
         }
         setVisible(true);
+    }
+    
+    public void viderLabel () {
+    	setText(" ");
+    	setForeground(Color.DARK_GRAY);
+    	setVisible(false);
     }
 }

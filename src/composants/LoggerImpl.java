@@ -33,6 +33,7 @@ public class LoggerImpl extends Logger{
 			String dateLog = dateFormat.format(date);
 			dateLog = dateLog.replace(" ", "_");
 			dateLog = dateLog.replace("/", "-");
+			dateLog = dateLog.replace(":", "-");
 			
 			
 			String fileName = currentDirectory+baseName+dateLog;
