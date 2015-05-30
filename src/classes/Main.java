@@ -14,7 +14,6 @@ public class Main {
 		bigComponent.control().setNombreBoites(5);
 		bigComponent.control().setNombreAgents(10);
 		
-		
 		LoggerImpl logger = new LoggerImpl();
 		bigComponent.gestionLogger().ajoutLogger(logger.getInfosSetLog());
 	}

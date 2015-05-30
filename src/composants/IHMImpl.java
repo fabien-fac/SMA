@@ -1,5 +1,7 @@
 package composants;
 
+import java.util.List;
+
 import sma_ihm.IhmFrame;
 import classes.Position;
 import interfaces.IControl;
@@ -26,6 +28,18 @@ public class IHMImpl extends IHM{
 			@Override
 			public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
 				ihmFrame.setInfoDeplacer(agent, position, possedeBoite);
+			}
+
+			@Override
+			public void setInfosInitiales(List<IInfos> infosInitiales) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setNouveauElement(IInfos nouveauElement) {
+				// TODO Auto-generated method stub
+				
 			}
 			
 		};

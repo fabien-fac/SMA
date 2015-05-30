@@ -1,6 +1,10 @@
 package classes;
 
 import interfaces.IInfos;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import enums.Actions;
 
 public class Action {
@@ -11,6 +15,7 @@ public class Action {
 	private IInfos boite;
 	private IInfos nid;
 	private Position position;
+	private List<IInfos> nouveauxElements = new ArrayList<IInfos>();
 	
 	public long getId() {
 		return id;
@@ -47,6 +52,12 @@ public class Action {
 	}
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+	public List<IInfos> getNouveauxElements() {
+		return nouveauxElements;
+	}
+	public void setNouveauxElements(List<IInfos> nouveauxElements) {
+		this.nouveauxElements = nouveauxElements;
 	}
 	
 }
