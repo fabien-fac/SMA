@@ -17,7 +17,6 @@ public class Main {
 		
 		LoggerImpl logger = new LoggerImpl();
 		bigComponent.gestionLogger().ajoutLogger(logger.getInfosSetLog());
-		
 	}
 
 }

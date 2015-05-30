@@ -77,30 +77,35 @@ public class CasePanel extends javax.swing.JPanel {
 	public void setInfoPrendreBoite(IInfos agent, IInfos boite) {
 		robotLabel.setColorLabel(agent.getCouleur());
 		boiteLabel.setColorLabel(boite.getCouleur());
+		validate();
 	}
 	
 	public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid) {
 		robotLabel.setColorLabel(agent.getCouleur());
-		boiteLabel.setVisible(false);		
+		boiteLabel.setVisible(false);
+		validate();
 	}
 	
 	public void setInfoDeplacerRobot(IInfos agent) {
 		robotLabel.setColorLabel(agent.getCouleur());
+		validate();
 	}
 	
 	public void setInfoDeplacerRobotBoite(IInfos agent) {
 		robotLabel.setColorLabel(agent.getCouleur());
 		boiteLabel.setColorLabel(agent.getCouleur());
+		validate();
 	}
 	
 	public void effacerTraceRobot () {
 		robotLabel.setVisible(false);
-		boiteLabel.setVisible(false);
+		validate();
 	}
 	
 	public void effacerTraceRobotBoite () {
 		robotLabel.setVisible(false);
 		boiteLabel.setVisible(false);
+		validate();
 	}
 
     /**
