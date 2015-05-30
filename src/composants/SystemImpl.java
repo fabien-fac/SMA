@@ -322,18 +322,20 @@ public class SystemImpl extends SMA.System{
 	private Action getActionFromList(int idAction){
 		Action action = null;
 		synchronized (lockActions) {
-			if(idAction < cptActions){
+			if(idAction <= cptActions){
 				action = actions.get(idAction);
 			}
+			return action;
 		}
 		
-		return action;
 	}
 	
 	private void addAction(Action action){
 		synchronized (lockActions) {
 			action.setId(cptActions);
 			actions.add((int) cptActions, action);
+			
+			requires().signalLog().signalNewLog((int) cptActions);
 			cptActions++;
 		}
 	}

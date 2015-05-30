@@ -60,7 +60,6 @@ public class Case {
 	
 	public boolean contientAgent(){
 		for(IInfos info : elements){
-			System.out.println("type: " + info.getType());
 			if(info.getType().equals(Types.AGENT.toString())){
 				return true;
 			}
