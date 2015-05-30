@@ -5,6 +5,7 @@
  */
 package sma_ihm;
 
+import interfaces.IControl;
 import interfaces.IInfos;
 
 import java.awt.BorderLayout;
@@ -25,13 +26,15 @@ public class IhmFrame extends javax.swing.JFrame {
     private static SystemPanel system;
     private int ligne = 50;
     private int colonne = 50;
-    private int robot;
+    private int robot = 10;
     private InitialisationDialogue initDialog;
     private static IhmFrame ihmFrame;
+    private static IControl controleur;
+    
     /**
      * Creates new form InterfaceRobot
      */
-    public IhmFrame() {
+    public IhmFrame(IControl controle) {
         try {
             System.setProperty( "file.encoding", "UTF-8" );
             UIManager.setLookAndFeel(
@@ -41,11 +44,12 @@ public class IhmFrame extends javax.swing.JFrame {
         }
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        system = new SystemPanel(ihmFrame);
+        system = new SystemPanel(this);
         grille = new GrillePanel(ligne, colonne, system);
         jPanel1.add(grille, BorderLayout.CENTER);
         jPanel1.add(system, BorderLayout.EAST);
         initDialog = new InitialisationDialogue(this, true);
+        controleur = controle;
         
     }
 
@@ -96,7 +100,52 @@ public class IhmFrame extends javax.swing.JFrame {
 	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
 		grille.setInfoDeplacer(agent, position, possedeBoite);
 	}
+	
+	/**
+	 * Methodes permettant l'execution de l'ensemble des actions réalisable sur le system :
+	 * - lancer le systeme
+	 * - Mettre en pause
+	 * - Changer la vitesse
+	 * - Mode pas a pas
+	 * @param controle
+	 */
+
     
+	/**
+	 * Lance l'application
+	 */
+	public void lancerApplication(){
+		controleur.lancerSystem();
+	}
+	
+	/**
+	 * Met en pause l'application
+	 */
+	public void mettreEnPauseApplication(){
+		controleur.mettreEnPause(true);
+	}
+	
+	/**
+	 * Relance l'application
+	 */
+	public void relancerApplication() {
+		controleur.mettreEnPause(false);
+	}
+	
+	/**
+	 * Arrete l'application
+	 */
+	public void changerVitesseApplication(int vitesse){
+		controleur.changeVitesse(vitesse);
+	}
+	
+	/**
+	 * Arrete l'application
+	 */
+	public void avancerPasAPasApplication(){
+		controleur.modePasAPas(true);
+	}
+	
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,38 +208,38 @@ public class IhmFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ihmFrame = new IhmFrame();
-                ihmFrame.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(IhmFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                ihmFrame = new IhmFrame(controleur);
+//                ihmFrame.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

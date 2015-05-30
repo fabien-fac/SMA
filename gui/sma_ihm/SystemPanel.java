@@ -47,6 +47,10 @@ public class SystemPanel extends javax.swing.JPanel {
 	    informationPanel2.updateInformation(info, p);
 	    validate();
 	}
+	
+	public void lancerApplication () {
+		ihmFrame.lancerApplication();
+	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sma_ihm.ControlePanel controlePanel2;
     private sma_ihm.InformationPanel informationPanel2;

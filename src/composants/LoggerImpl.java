@@ -14,7 +14,7 @@ import classes.Position;
 
 public class LoggerImpl extends Logger{
 	
-	private final String baseName = "LogSMA-";
+	private final String baseName = "C:/LogSMA-";
 	private SimpleDateFormat dateFormat;
 	private PrintWriter writer;
 	
@@ -29,7 +29,7 @@ public class LoggerImpl extends Logger{
 			
 			dateLog = baseName+dateLog;
 			
-			File file = new File(baseName+dateLog);
+			File file = new File(dateLog);
 			
 			writer = new PrintWriter(file, "UTF-8");
 			

@@ -72,10 +72,12 @@ public class ControlePanel extends javax.swing.JPanel {
     
     private void startBoutonActionPerformed(java.awt.event.ActionEvent evt) {   
     	
+		System.out.println("On lance l'appli controle stop");
     }   
     
     private void stopBoutonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+		System.out.println("On lance l'appli controle start");
+		pere.lancerApplication();
     }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
