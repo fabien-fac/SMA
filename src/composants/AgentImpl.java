@@ -214,7 +214,6 @@ public class AgentImpl extends Agent{
 
 	private void prendreBoite(IInfos boite) {
 		if(requires().demandeAction().prendreBoite(make_infosAgent(), boite)){
-			System.out.println(nom + " - prendre boite " + boite.getNom());
 			boitePossede = boite;
 		}
 	}
@@ -249,7 +248,6 @@ public class AgentImpl extends Agent{
 			}
 			
 			if(requires().demandeAction().deplacer(make_infosAgent(), newPosition, true)){
-				System.out.println(nom + " déplacement vers nids " + nid.getNom());
 				position = newPosition;
 			}
 		}
