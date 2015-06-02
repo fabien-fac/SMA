@@ -51,6 +51,14 @@ public class SystemPanel extends javax.swing.JPanel {
 	public void lancerApplication () {
 		ihmFrame.lancerApplication();
 	}
+	
+	/**
+	 * Modifie le temps (en seconde) qui s'ecoule entre deux actions d'un agent
+	 */
+	public void changerVitesseApplication(int vitesse){
+		ihmFrame.changerVitesseApplication(vitesse);
+	}
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sma_ihm.ControlePanel controlePanel2;
     private sma_ihm.InformationPanel informationPanel2;

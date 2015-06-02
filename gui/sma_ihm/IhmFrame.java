@@ -141,7 +141,7 @@ public class IhmFrame extends javax.swing.JFrame {
 	}
 	
 	/**
-	 * Arrete l'application
+	 * Modifie le temps (en seconde) qui s'ecoule entre deux actions d'un agent
 	 */
 	public void changerVitesseApplication(int vitesse){
 		controleur.changeVitesse(vitesse);
@@ -153,7 +153,7 @@ public class IhmFrame extends javax.swing.JFrame {
 	public void avancerPasAPasApplication(){
 		controleur.modePasAPas(true);
 	}
-	
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
