@@ -20,9 +20,9 @@ import javax.swing.event.ChangeListener;
 public class ControlePanel extends javax.swing.JPanel {
 
 	private final int SPINNER_MIN_VALUE = 1;
-	private final int SPINNER_MAX_VALUE = 5;
+	private final int SPINNER_MAX_VALUE = 9;
 	private final int SPINNER_STEP_VALUE = 1;
-	private final int SPINNER_INIT_VALUE = 1;
+	private final int SPINNER_INIT_VALUE = 5;
 
 	private SystemPanel pere;
 
@@ -114,7 +114,10 @@ public class ControlePanel extends javax.swing.JPanel {
 
 	private void SpinnerChangeSpeedActionPerformed(ChangeEvent evt) {
 		JSpinner s = (JSpinner) evt.getSource();
-		int vitesse = 1500-(250*(int)s.getValue());
+		int vitesse = 2250-(250*(int)s.getValue());
+		if (vitesse <= 0){
+			vitesse = 1;
+		}
 		pere.changerVitesseApplication(vitesse);
 	}
 
