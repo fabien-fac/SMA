@@ -10,7 +10,7 @@ public class Main {
 		
 		SMA.BigComponent.Component bigComponent = new BigComponentImpl().newComponent();
 		
-		bigComponent.control().changeVitesse(50);
+		bigComponent.control().changeVitesse(1000);
 		bigComponent.control().setNombreBoites(15);
 		bigComponent.control().setNombreAgents(5);
 		

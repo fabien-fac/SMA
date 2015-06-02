@@ -145,6 +145,7 @@ public class IhmFrame extends javax.swing.JFrame {
 	 */
 	public void changerVitesseApplication(int vitesse){
 		controleur.changeVitesse(vitesse);
+		System.out.println(vitesse);
 	}
 	
 	/**
