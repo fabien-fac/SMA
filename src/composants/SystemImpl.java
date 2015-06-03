@@ -36,6 +36,7 @@ public class SystemImpl extends SMA.System{
 	private List<IInfos> nids = new ArrayList<IInfos>();
 	private final Object lockGrille = new Object();
 	private final Object lockActions = new Object();
+	private boolean isStarted = false;
 	
 	private List<Action> actions = new ArrayList<Action>();
 	private long cptActions = 0;
@@ -157,12 +158,16 @@ public class SystemImpl extends SMA.System{
 
 			@Override
 			public void lancerSystem() {
-				placerNids();
-				placerBoites();
-				placerAgents();
-				
-				avertireLoggers();
-				timer.schedule(new PopBoiteTask(),delaisApparitionBoite);
+				if(!isStarted){
+					isStarted = true;
+
+					placerNids();
+					placerBoites();
+					placerAgents();
+					
+					avertireLoggers();
+					timer.schedule(new PopBoiteTask(),delaisApparitionBoite);
+				}
 			}
 
 			@Override
