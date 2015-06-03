@@ -20,7 +20,7 @@ import enums.Couleurs;
 
 public class SystemImpl extends SMA.System{
 	
-	private final int INITIAL_ENERGIE_AGENT = 100;
+	private final int INITIAL_ENERGIE_AGENT = 500;
 	private int initalVitesseAgent = 1000;
 	
 	private int ecartEntreNids = 2;
@@ -43,7 +43,7 @@ public class SystemImpl extends SMA.System{
 	
 	private Timer timer = new Timer();
 	private int delaisApparitionBoite = 2000;
-	private int nbBoiteApparition = 2;
+	private int nbBoiteApparition = 1;
 	
 	public SystemImpl() {
 		for (int i = 0; i < nbLignes; i++) {
