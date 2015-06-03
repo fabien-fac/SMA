@@ -9,6 +9,8 @@ import interfaces.IPercevoir;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import classes.Action;
 import classes.Case;
@@ -37,6 +39,10 @@ public class SystemImpl extends SMA.System{
 	
 	private List<Action> actions = new ArrayList<Action>();
 	private long cptActions = 0;
+	
+	private Timer timer = new Timer();
+	private int delaisApparitionBoite = 2000;
+	private int nbBoiteApparition = 2;
 	
 	public SystemImpl() {
 		for (int i = 0; i < nbLignes; i++) {
@@ -156,6 +162,7 @@ public class SystemImpl extends SMA.System{
 				placerAgents();
 				
 				avertireLoggers();
+				timer.schedule(new PopBoiteTask(),delaisApparitionBoite);
 			}
 
 			@Override
@@ -166,6 +173,12 @@ public class SystemImpl extends SMA.System{
 			@Override
 			public void setNombreBoites(int _nbBoites) {
 				nbBoites =_nbBoites;
+			}
+
+			@Override
+			public void gestionApparitionBoites(int nbBoite, int delais) {
+				nbBoiteApparition = nbBoite;
+				delaisApparitionBoite = delais;
 			}
 
 		};
@@ -392,6 +405,34 @@ public class SystemImpl extends SMA.System{
 		
 		action.setNouveauxElements(infos);
 		addAction(action);
+	}
+	
+	class PopBoiteTask extends TimerTask{
+
+		@Override
+		public void run() {
+			
+			for(int i=0; i < nbBoiteApparition; i++){
+				Position position;
+				do{
+					position = getRandomPositionInGrille();
+				}while(grille[position.getX()][position.getY()].contientBoite());
+				
+				IInfos boite = new BoiteImpl("Boite"+cptBoites, getRandomCouleur(), position);
+				placerElementDansGrille(boite, position);
+				cptBoites++;
+				
+				Action action = new Action();
+				action.setAction(Actions.NOUVEL_ELEMENT);
+				List<IInfos> infos = new ArrayList<IInfos>();
+				infos.add(boite);
+				action.setNouveauxElements(infos);
+				addAction(action);
+			}
+			
+			timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
+		}
+		
 	}
 
 }

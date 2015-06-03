@@ -8,4 +8,5 @@ public interface IControl {
 	public void lancerSystem();
 	public void setNombreAgents(int nbAgents);
 	public void setNombreBoites(int nbBoites);
+	public void gestionApparitionBoites(int nbBoite, int delais);
 }
