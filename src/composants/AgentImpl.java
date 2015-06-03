@@ -164,4 +164,7 @@ public class AgentImpl extends Agent {
 		return nids;
 	}
 
+	public IInfos getBoitePossede() {
+		return boitePossede;
+	}
 }

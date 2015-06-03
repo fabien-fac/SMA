@@ -87,9 +87,9 @@ public class GrillePanel extends javax.swing.JPanel {
 	 * @param agent
 	 * @param position
 	 */
-	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
+	public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede) {
 		Position p = agent.getPosition();
-		if(possedeBoite) {
+		if(boitePossede != null) {
 			casePanelTable[p.getX()][p.getY()].effacerTraceRobotBoite();;
 	    	casePanelTable[position.getX()][position.getY()].setInfoDeplacerRobotBoite(agent);
 		} else {

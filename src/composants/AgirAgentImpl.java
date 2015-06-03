@@ -64,7 +64,7 @@ public class AgirAgentImpl extends AgirAgent {
 				+ (position.getY() - 1);
 
 		Position pos = new Position(randX, randY);
-		if (requires().demandeActionAgent().deplacer(infos, pos, false)) {
+		if (requires().demandeActionAgent().deplacer(infos, pos, null)) {
 			self.setPosition(pos);
 		}
 	}
@@ -100,7 +100,7 @@ public class AgirAgentImpl extends AgirAgent {
 		}
 
 		if (requires().demandeActionAgent().deplacer(infos, newPosition,
-				true)) {
+				self.getBoitePossede())) {
 			self.setPosition(newPosition);
 		}
 	}

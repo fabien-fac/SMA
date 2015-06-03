@@ -301,7 +301,7 @@ public class SystemImpl extends SMA.System{
 			}
 			
 			@Override
-			public boolean deplacer(IInfos agent, Position newPos, boolean possedeBoite) {
+			public boolean deplacer(IInfos agent, Position newPos, IInfos boitePossede) {
 				boolean res = false;
 				if(isValidPosition(newPos)){
 					synchronized (lockGrille) {
@@ -319,8 +319,9 @@ public class SystemImpl extends SMA.System{
 				
 				if(res){
 					Action action = new Action();
-					if(possedeBoite){
+					if(boitePossede != null){
 						action.setAction(Actions.DEPLACEMENT_AVEC_BOITE);
+						action.setBoite(boitePossede);
 					}
 					else{
 						action.setAction(Actions.DEPLACEMENT);

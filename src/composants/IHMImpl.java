@@ -29,8 +29,8 @@ public class IHMImpl extends IHM {
 
 			@Override
 			public void setInfoDeplacer(IInfos agent, Position position,
-					boolean possedeBoite) {
-				ihmFrame.setInfoDeplacer(agent, position, possedeBoite);
+					IInfos boitePossede) {
+				ihmFrame.setInfoDeplacer(agent, position, boitePossede);
 			}
 
 			@Override
