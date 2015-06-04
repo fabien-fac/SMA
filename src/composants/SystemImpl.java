@@ -202,6 +202,11 @@ public class SystemImpl extends SMA.System {
 				delaisApparitionBoite = delais;
 			}
 
+			@Override
+			public void persisterSystem() {
+				parts().persistanceSystem().persistance().sauvegarderSystem(getAllIInfosInGrille());
+			}
+
 		};
 	}
 
@@ -319,17 +324,14 @@ public class SystemImpl extends SMA.System {
 			}
 
 			@Override
-			public boolean deplacer(IInfos agent, Position newPos,
-					IInfos boitePossede) {
+			public boolean deplacer(IInfos agent, Position oldPos,
+					IInfos boitePossede, Position newPos) {
 				boolean res = false;
-				Position positionOrigine = null;
 				if (isValidPosition(newPos)) {
 					synchronized (lockGrille) {
 						Case cDest = grille[newPos.getX()][newPos.getY()];
 						if (!cDest.contientAgent()) {
-							positionOrigine = new Position(agent.getPosition().getX(), agent
-									.getPosition().getY());
-							Case cOrigine = grille[positionOrigine.getX()][positionOrigine.getY()];
+							Case cOrigine = grille[oldPos.getX()][oldPos.getY()];
 							cOrigine.retirerElement(agent);
 
 							cDest.addElement(agent);
@@ -347,7 +349,8 @@ public class SystemImpl extends SMA.System {
 						action.setAction(Actions.DEPLACEMENT);
 					}
 					action.setAgent(agent);
-					action.setPosition(positionOrigine);
+					action.setOldPosition(oldPos);
+					action.setNewPosition(newPos);
 
 					addAction(action);
 				}

@@ -27,11 +27,11 @@ public class LogDispactcherEcosystemImpl extends LogDispatcherEcosystem {
 						switch (action.getAction()) {
 						case DEPLACEMENT:
 							logger.setInfoDeplacer(action.getAgent(),
-									action.getPosition(), null);
+									action.getOldPosition(), null, action.getNewPosition());
 							break;
 						case DEPLACEMENT_AVEC_BOITE:
 							logger.setInfoDeplacer(action.getAgent(),
-									action.getPosition(), action.getBoite());
+									action.getOldPosition(), action.getBoite(), action.getNewPosition());
 							break;
 						case PRENDRE_BOITE:
 							logger.setInfoPrendreBoite(action.getAgent(),

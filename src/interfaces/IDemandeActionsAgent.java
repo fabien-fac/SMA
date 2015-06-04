@@ -6,7 +6,7 @@ import classes.Position;
 
 public interface IDemandeActionsAgent {
 
-	public boolean deplacer(IInfos agent, Position position, IInfos boitePossede);
+	public boolean deplacer(IInfos agent, Position oldPosition, IInfos boitePossede, Position newPosition);
 	public boolean prendreBoite(IInfos agent, IInfos boite);
 	public int deposerBoite(IInfos agent, IInfos boite, IInfos nid);
 	public List<IInfos> getListNids();

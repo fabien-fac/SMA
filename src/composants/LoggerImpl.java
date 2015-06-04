@@ -88,16 +88,16 @@ public class LoggerImpl extends Logger{
 			}
 			
 			@Override
-			public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede) {
+			public void setInfoDeplacer(IInfos agent, Position oldPosition, IInfos boitePossede, Position newPosition) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("L'agent ");
 				sb.append(agent.getNom());
 				sb.append(" (");
 				sb.append(agent.getCouleur());
 				sb.append(") se déplace en (");
-				sb.append(position.getX());
+				sb.append(newPosition.getX());
 				sb.append(", ");
-				sb.append(position.getY());
+				sb.append(newPosition.getY());
 				sb.append(") ");
 				if(boitePossede != null){
 					sb.append("avec une boite");

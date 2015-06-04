@@ -14,7 +14,8 @@ public class Action {
 	private IInfos agent;
 	private IInfos boite;
 	private IInfos nid;
-	private Position position;
+	private Position oldPosition;
+	private Position newPosition;
 	private List<IInfos> nouveauxElements = new ArrayList<IInfos>();
 	
 	public long getId() {
@@ -47,11 +48,18 @@ public class Action {
 	public void setNid(IInfos nid) {
 		this.nid = nid;
 	}
-	public Position getPosition() {
-		return position;
+	
+	public Position getOldPosition() {
+		return oldPosition;
 	}
-	public void setPosition(Position position) {
-		this.position = position;
+	public void setOldPosition(Position oldPosition) {
+		this.oldPosition = oldPosition;
+	}
+	public Position getNewPosition() {
+		return newPosition;
+	}
+	public void setNewPosition(Position newPosition) {
+		this.newPosition = newPosition;
 	}
 	public List<IInfos> getNouveauxElements() {
 		return nouveauxElements;
