@@ -105,8 +105,8 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * @param agent
 	 * @param position
 	 */
-	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite) {
-		grille.setInfoDeplacer(agent, position, possedeBoite);
+	public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede) {
+		grille.setInfoDeplacer(agent, position, boitePossede);
 	}
 	
 	/**

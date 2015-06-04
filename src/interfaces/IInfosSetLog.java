@@ -5,7 +5,7 @@ import java.util.List;
 import classes.Position;
 
 public interface IInfosSetLog {
-	public void setInfoDeplacer(IInfos agent, Position position, boolean possedeBoite);
+	public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede);
 	public void setInfoPrendreBoite(IInfos agent, IInfos boite);
 	public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid);
 	public void setInfosInitiales(List<IInfos> infosInitiales);

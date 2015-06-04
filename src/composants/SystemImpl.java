@@ -20,7 +20,7 @@ import enums.Couleurs;
 
 public class SystemImpl extends SMA.System{
 	
-	private final int INITIAL_ENERGIE_AGENT = 100;
+	private final int INITIAL_ENERGIE_AGENT = 500;
 	private int initalVitesseAgent = 1000;
 	
 	private int ecartEntreNids = 2;
@@ -43,7 +43,7 @@ public class SystemImpl extends SMA.System{
 	
 	private Timer timer = new Timer();
 	private int delaisApparitionBoite = 2000;
-	private int nbBoiteApparition = 2;
+	private int nbBoiteApparition = 1;
 	
 	public SystemImpl() {
 		for (int i = 0; i < nbLignes; i++) {
@@ -301,7 +301,7 @@ public class SystemImpl extends SMA.System{
 			}
 			
 			@Override
-			public boolean deplacer(IInfos agent, Position newPos, boolean possedeBoite) {
+			public boolean deplacer(IInfos agent, Position newPos, IInfos boitePossede) {
 				boolean res = false;
 				if(isValidPosition(newPos)){
 					synchronized (lockGrille) {
@@ -319,8 +319,9 @@ public class SystemImpl extends SMA.System{
 				
 				if(res){
 					Action action = new Action();
-					if(possedeBoite){
+					if(boitePossede != null){
 						action.setAction(Actions.DEPLACEMENT_AVEC_BOITE);
+						action.setBoite(boitePossede);
 					}
 					else{
 						action.setAction(Actions.DEPLACEMENT);

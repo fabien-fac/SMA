@@ -14,19 +14,45 @@ import interfaces.IInfosGetLog
 import interfaces.IInfosSetLog
 import interfaces.IPercevoir
 import interfaces.ISignalLog
+import interfaces.IDecisionAgent
+import interfaces.IAgirAgent
 
 namespace SMA {
+	
+	component PerceptionAgent{
+		requires perception: IPercevoir
+		provides perceptionAgent: IPercevoir
+	}
+	
+	component DecisionAgent{
+		provides decisionAgent: IDecisionAgent
+	}
+	
+	component AgirAgent{
+		requires demandeActionAgent: IDemandeActionsAgent
+		provides action: IAgirAgent
+	}
 
 	ecosystem Agents {
 
 		provides createElement: ICreateAgent
 		provides getElement: IGetAgent
-
+		
 		species Agent(nom: String, position: Position, couleur: String) {
 			provides infosAgent: IInfos
 			provides actionsAgent: IActionsAgent
 			requires percevoirAgent: IPercevoir
 			requires demandeAction: IDemandeActionsAgent
+			
+			part percepetion: PerceptionAgent{
+				bind perception to percevoirAgent
+			}
+			
+			part decision: DecisionAgent
+			
+			part action: AgirAgent{
+				bind demandeActionAgent to demandeAction
+			}
 		}
 	}
 	
