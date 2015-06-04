@@ -112,9 +112,10 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * Indique à l'ihm qu'un robot se déplace
 	 * @param agent
 	 * @param position
+	 * @param newPosition 
 	 */
-	public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede) {
-		grille.setInfoDeplacer(agent, position, boitePossede);
+	public void setInfoDeplacer(IInfos agent, Position position, IInfos boitePossede, Position newPosition) {
+		grille.setInfoDeplacer(agent, position, boitePossede, newPosition);
 	}
 	
 	/**

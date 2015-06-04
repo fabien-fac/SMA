@@ -93,29 +93,27 @@ public class GrillePanel extends javax.swing.JPanel {
 	 * 
 	 * @param agent
 	 *            : information sur l'agent avant qu'il se déplace
-	 * @param position
+	 * @param oldPosition
 	 *            : prochaine position de l'agent
 	 * @param boitePossede
 	 *            : information si l'agent se déplace avec une boite, null sinon
+	 * @param newPosition 
 	 */
-	public void setInfoDeplacer(IInfos agent, Position position,
-			IInfos boitePossede) {
-		Position p = agent.getPosition();
+	public void setInfoDeplacer(IInfos agent, Position oldPosition,
+			IInfos boitePossede, Position newPosition) {
 		// Si l'agent porte une boite
-		System.out.println("agent : "+agent.getNom()+" "+ p.getX()+ " " +p.getY());
-		System.out.println("Position : " + position.getX()+ " " +position.getY());
+		System.out.println("Position new: " + newPosition.getX()+ " : " +newPosition.getY());
+		System.out.println("Position old: " + oldPosition.getX()+ " : " +oldPosition.getY());
 		if (boitePossede != null) {
 			// On vérifie qu'il y a une boite dans la case suivante
-			casePanelTable[position.getX()][position.getY()].containsBoite();
+			casePanelTable[newPosition.getX()][newPosition.getY()].containsBoite();
 			// on déplace les info dans la case suivante
-			casePanelTable[position.getX()][position.getY()]
-					.setInfoDeplacerRobotBoite(agent, boitePossede);
+			casePanelTable[newPosition.getX()][newPosition.getY()].setInfoDeplacerRobotBoite(agent, boitePossede);
 			// On reinitialise l'ancienne case
-//			casePanelTable[p.getX()][p.getY()].effacerTraceRobotBoite();
+			casePanelTable[oldPosition.getX()][oldPosition.getY()].effacerTraceRobotBoite();
 		} else {
-			casePanelTable[position.getX()][position.getY()]
-					.setInfoDeplacerRobot(agent);
-//			casePanelTable[p.getX()][p.getY()].effacerTraceRobot();
+			casePanelTable[newPosition.getX()][newPosition.getY()].setInfoDeplacerRobot(agent);
+			casePanelTable[oldPosition.getX()][oldPosition.getY()].effacerTraceRobot();
 		}
 
 	}
