@@ -94,6 +94,13 @@ public class RobotPanel extends javax.swing.JPanel {
         validate();
     }
     
+    public void resetInformations() {
+        jLabel7.setText("");
+        jLabel9.setText("");
+        jLabel11.setText("");
+        validate();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

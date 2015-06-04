@@ -79,6 +79,13 @@ public class BoitePanel extends javax.swing.JPanel {
         jLabel11.setText(info.getNom());
         validate();
     }
+    
+    public void resetInformations() {
+        jLabel7.setText("");
+        jLabel11.setText("");
+        validate();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

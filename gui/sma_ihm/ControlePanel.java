@@ -61,14 +61,14 @@ public class ControlePanel extends javax.swing.JPanel {
 		startBouton.setText("Start");
 		startBouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				stopBoutonActionPerformed(evt);
+				startSystemBoutonActionPerformed(evt);
 			}
 		});
 
 		stopBouton.setText("Stop");
 		stopBouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				startBoutonActionPerformed(evt);
+				stopSystemBoutonActionPerformed(evt);
 			}
 		});
 
@@ -104,12 +104,13 @@ public class ControlePanel extends javax.swing.JPanel {
 
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void startBoutonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void stopSystemBoutonActionPerformed(java.awt.event.ActionEvent evt) {
 
 	}
 
-	private void stopBoutonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void startSystemBoutonActionPerformed(java.awt.event.ActionEvent evt) {
 		pere.lancerApplication();
+		startBouton.setEnabled(false);
 	}
 
 	private void SpinnerChangeSpeedActionPerformed(ChangeEvent evt) {

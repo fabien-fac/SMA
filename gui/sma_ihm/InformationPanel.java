@@ -101,18 +101,36 @@ public class InformationPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updateInformation(List<IInfos> info, Position p) {
-        
+        boolean containsRobot = false;
+        boolean containsBoite = false;
+        boolean containsNid = false;
     	jLabel3.setText(String.valueOf(p.getX()));
         jLabel5.setText(String.valueOf(p.getY()));
         for (IInfos info1 : info) {
             if (info1.getType().equals(Types.AGENT.toString())) {
                 robotPanel1.updateInformations(info1);
+                containsRobot = true;
             } else if (info1.getType().equals(Types.BOITE.toString())) {
                 boitePanel1.updateInformations(info1);
+                containsBoite = true;
             } else if (info1.getType().equals(Types.NID.toString())) {
                 nidPanel1.updateInformations(info1);
+                containsNid = true;
             }
         }
+        if(!containsBoite) {
+        	boitePanel1.resetInformations();
+        }
+        if(!containsNid){
+        	nidPanel1.resetInformations();
+        }
+        if(!containsRobot){
+        	robotPanel1.resetInformations();
+        }
+    }
+    
+    public void setInformationTexte(IInfos info) {
+    	
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
