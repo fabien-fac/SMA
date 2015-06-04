@@ -16,6 +16,7 @@ import interfaces.IInfosGetLog
 import interfaces.IInfosSetLog
 import interfaces.IPercevoir
 import interfaces.ISignalLog
+import interfaces.IPersistanceSystem
 
 namespace SMA {
 
@@ -112,6 +113,10 @@ namespace SMA {
 		provides addAction: IAddAction
 		provides getLog: IInfosGetLog
 	}
+	
+	component PersistanceSystem {
+		provides persistance: IPersistanceSystem
+	}
 
 	component System {
 		provides perceptionSystem: IPercevoir
@@ -126,6 +131,8 @@ namespace SMA {
 		part actionsSystem: ActionsSystem{
 			bind signalLog to signalLog
 		}
+		
+		part persistanceSystem: PersistanceSystem
 	}
 
 	component IHM {

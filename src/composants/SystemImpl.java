@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import SMA.ActionsSystem;
+import SMA.PersistanceSystem;
 import classes.Action;
 import classes.Case;
 import classes.Position;
@@ -53,6 +54,11 @@ public class SystemImpl extends SMA.System {
 	@Override
 	protected ActionsSystem make_actionsSystem() {
 		return new ActionsSystemImpl();
+	}
+	
+	@Override
+	protected PersistanceSystem make_persistanceSystem() {
+		return new PersistanceSystemImpl();
 	}
 
 	private void placerBoites() {
@@ -174,7 +180,7 @@ public class SystemImpl extends SMA.System {
 					placerNids();
 					placerBoites();
 					placerAgents();
-
+					
 					avertireLoggers();
 					timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
 				}
@@ -392,6 +398,12 @@ public class SystemImpl extends SMA.System {
 	private void avertireLoggers() {
 		Action action = new Action();
 		action.setAction(Actions.INITIALISATION);
+		List<IInfos> infos = getAllIInfosInGrille();
+		action.setNouveauxElements(infos);
+		addAction(action);
+	}
+	
+	private List<IInfos> getAllIInfosInGrille(){
 		List<IInfos> infos = new ArrayList<IInfos>();
 		for (int i = 0; i < nbLignes; i++) {
 			for (int y = 0; y < nbColonnes; y++) {
@@ -401,9 +413,8 @@ public class SystemImpl extends SMA.System {
 				}
 			}
 		}
-
-		action.setNouveauxElements(infos);
-		addAction(action);
+		
+		return infos;
 	}
 
 	class PopBoiteTask extends TimerTask {
