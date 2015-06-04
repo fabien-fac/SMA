@@ -90,9 +90,9 @@ public class CasePanel extends javax.swing.JPanel {
 		validate();
 	}
 	
-	public void setInfoDeplacerRobotBoite(IInfos agent) {
+	public void setInfoDeplacerRobotBoite(IInfos agent, String couleurBoite) {
 		robotLabel.setColorLabel(agent.getCouleur());
-		boiteLabel.setColorLabel(agent.getCouleur());
+		boiteLabel.setColorLabel(couleurBoite);
 		validate();
 	}
 	
@@ -105,6 +105,24 @@ public class CasePanel extends javax.swing.JPanel {
 		robotLabel.viderLabel();
 		boiteLabel.viderLabel();
 		validate();
+	}
+	
+	public boolean containsBoite() {
+		for (IInfos iInfos : infoList) {
+			if(iInfos.getType().equals(Types.BOITE.toString())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String getBoiteCouleurs () {
+		for (IInfos iInfos : infoList) {
+			if(iInfos.getType().equals(Types.BOITE.toString())) {
+				return iInfos.getCouleur();
+			}
+		}
+		return null;
 	}
 
     /**
