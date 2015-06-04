@@ -50,12 +50,12 @@ public class SystemImpl extends SMA.System {
 			}
 		}
 	}
-	
+
 	@Override
 	protected ActionsSystem make_actionsSystem() {
 		return new ActionsSystemImpl();
 	}
-	
+
 	@Override
 	protected PersistanceSystem make_persistanceSystem() {
 		return new PersistanceSystemImpl();
@@ -164,6 +164,18 @@ public class SystemImpl extends SMA.System {
 			@Override
 			public void mettreEnPause(boolean pause) {
 				requires().actionsSurAgents().setPause(pause);
+
+				try {
+					if (pause) {
+						timer.cancel();
+
+					} else {
+						timer = new Timer();
+						timer.schedule(new PopBoiteTask(),
+								delaisApparitionBoite);
+					}
+				} catch (Exception e) {
+				}
 			}
 
 			@Override
@@ -180,7 +192,7 @@ public class SystemImpl extends SMA.System {
 					placerNids();
 					placerBoites();
 					placerAgents();
-					
+
 					avertireLoggers();
 					timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
 				}
@@ -204,7 +216,8 @@ public class SystemImpl extends SMA.System {
 
 			@Override
 			public void persisterSystem() {
-				parts().persistanceSystem().persistance().sauvegarderSystem(getAllIInfosInGrille());
+				parts().persistanceSystem().persistance()
+						.sauvegarderSystem(getAllIInfosInGrille());
 			}
 
 		};
@@ -405,8 +418,8 @@ public class SystemImpl extends SMA.System {
 		action.setNouveauxElements(infos);
 		addAction(action);
 	}
-	
-	private List<IInfos> getAllIInfosInGrille(){
+
+	private List<IInfos> getAllIInfosInGrille() {
 		List<IInfos> infos = new ArrayList<IInfos>();
 		for (int i = 0; i < nbLignes; i++) {
 			for (int y = 0; y < nbColonnes; y++) {
@@ -416,7 +429,7 @@ public class SystemImpl extends SMA.System {
 				}
 			}
 		}
-		
+
 		return infos;
 	}
 
@@ -443,6 +456,7 @@ public class SystemImpl extends SMA.System {
 				infos.add(boite);
 				action.setNouveauxElements(infos);
 				addAction(action);
+
 			}
 
 			timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
