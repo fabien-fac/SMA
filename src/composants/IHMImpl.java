@@ -47,7 +47,7 @@ public class IHMImpl extends IHM {
 
 			@Override
 			public void suicideAgent(IInfos agent) {
-				// TODO Auto-generated method stub
+				ihmFrame.suicideAgent(agent);
 				
 			}
 
