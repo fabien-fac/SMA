@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import SMA.ActionsSystem;
 import classes.Action;
 import classes.Case;
 import classes.Position;
@@ -20,7 +21,7 @@ import enums.Couleurs;
 
 public class SystemImpl extends SMA.System {
 
-	private final int INITIAL_ENERGIE_AGENT = 500;
+	private final int INITIAL_ENERGIE_AGENT = 100;
 	private int initalVitesseAgent = 1000;
 
 	private int ecartEntreNids = 2;
@@ -35,11 +36,7 @@ public class SystemImpl extends SMA.System {
 	private Random random = new Random();
 	private List<IInfos> nids = new ArrayList<IInfos>();
 	private final Object lockGrille = new Object();
-	private final Object lockActions = new Object();
 	private boolean isStarted = false;
-
-	private List<Action> actions = new ArrayList<Action>();
-	private long cptActions = 0;
 
 	private Timer timer = new Timer();
 	private int delaisApparitionBoite = 2000;
@@ -51,6 +48,11 @@ public class SystemImpl extends SMA.System {
 				grille[i][y] = new Case();
 			}
 		}
+	}
+	
+	@Override
+	protected ActionsSystem make_actionsSystem() {
+		return new ActionsSystemImpl();
 	}
 
 	private void placerBoites() {
@@ -379,33 +381,11 @@ public class SystemImpl extends SMA.System {
 
 	@Override
 	protected IInfosGetLog make_infosLog() {
-		return new IInfosGetLog() {
-			@Override
-			public Action getAction(int id) {
-				return getActionFromList(id);
-			}
-		};
-	}
-
-	private Action getActionFromList(int idAction) {
-		Action action = null;
-		synchronized (lockActions) {
-			if (idAction <= cptActions) {
-				action = actions.get(idAction);
-			}
-			return action;
-		}
-
+		return parts().actionsSystem().getLog();
 	}
 
 	private void addAction(Action action) {
-		synchronized (lockActions) {
-			action.setId(cptActions);
-			actions.add((int) cptActions, action);
-
-			requires().signalLog().signalNewLog((int) cptActions);
-			cptActions++;
-		}
+		parts().actionsSystem().addAction().addAction(action);
 	}
 
 	private void avertireLoggers() {

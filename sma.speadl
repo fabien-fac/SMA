@@ -1,10 +1,13 @@
 import classes.Position
 import interfaces.IActionsAgent
+import interfaces.IAddAction
+import interfaces.IAgirAgent
 import interfaces.IControl
 import interfaces.ICreateAgent
 import interfaces.ICreateAgentAvecProxy
 import interfaces.ICreateLogger
 import interfaces.ICreateProxyAgent
+import interfaces.IDecisionAgent
 import interfaces.IDemandeActionsAgent
 import interfaces.IGestionLogger
 import interfaces.IGetAgent
@@ -14,21 +17,19 @@ import interfaces.IInfosGetLog
 import interfaces.IInfosSetLog
 import interfaces.IPercevoir
 import interfaces.ISignalLog
-import interfaces.IDecisionAgent
-import interfaces.IAgirAgent
 
 namespace SMA {
-	
-	component PerceptionAgent{
+
+	component PerceptionAgent {
 		requires perception: IPercevoir
 		provides perceptionAgent: IPercevoir
 	}
-	
-	component DecisionAgent{
+
+	component DecisionAgent {
 		provides decisionAgent: IDecisionAgent
 	}
-	
-	component AgirAgent{
+
+	component AgirAgent {
 		requires demandeActionAgent: IDemandeActionsAgent
 		provides action: IAgirAgent
 	}
@@ -37,117 +38,126 @@ namespace SMA {
 
 		provides createElement: ICreateAgent
 		provides getElement: IGetAgent
-		
+
 		species Agent(nom: String, position: Position, couleur: String) {
 			provides infosAgent: IInfos
 			provides actionsAgent: IActionsAgent
 			requires percevoirAgent: IPercevoir
 			requires demandeAction: IDemandeActionsAgent
-			
-			part percepetion: PerceptionAgent{
+
+			part percepetion: PerceptionAgent {
 				bind perception to percevoirAgent
 			}
-			
+
 			part decision: DecisionAgent
-			
-			part action: AgirAgent{
+
+			part action: AgirAgent {
 				bind demandeActionAgent to demandeAction
 			}
 		}
 	}
-	
+
 	ecosystem ProxysAgent {
-		
+
 		provides createProxyAgent: ICreateProxyAgent
 		requires percevoirProxy: IPercevoir
 		requires demandeActionFromProxy: IDemandeActionsAgent
-		
-		species ProxyAgent(nomAgent: String){
+
+		species ProxyAgent(nomAgent: String) {
 			provides percevoirProxySpecy: IPercevoir
 			provides demandeActionProxySpecy: IDemandeActionsAgent
 		}
 	}
-	
+
 	ecosystem AgentsAvecProxyEcosystem {
-		
+
 		provides infosSurAgents: IInfosAgents
 		provides actionsAgentsProxy: IActionsAgent
 		provides createAgentAvecProxy: ICreateAgentAvecProxy
 		requires percevoirAP: IPercevoir
 		requires demandeActionAP: IDemandeActionsAgent
-		
-		part proxys: ProxysAgent{
+
+		part proxys: ProxysAgent {
 			bind percevoirProxy to percevoirAP
 			bind demandeActionFromProxy to demandeActionAP
 		}
-		
+
 		part agents: Agents
-		
-		species AgentAvecProxy(nom: String, position: Position, couleur: String){
+
+		species AgentAvecProxy(nom: String, position: Position, couleur: String) {
 			use proxy: proxys.ProxyAgent(nom)
-			use agent: agents.Agent(nom, position, couleur){
+			use agent: agents.Agent(nom, position, couleur) {
 				bind percevoirAgent to proxy.percevoirProxySpecy
 				bind demandeAction to proxy.demandeActionProxySpecy
 			}
 		}
 	}
-	
+
 	ecosystem LogDispatcherEcosystem {
-		
+
 		provides signalLog: ISignalLog
 		provides createLogger: ICreateLogger
 		requires logsEntrant: IInfosGetLog
-		
-		species ProxyLog(destinatairLog: IInfosSetLog){
+
+		species ProxyLog(destinatairLog: IInfosSetLog) {
 			requires logsSortant: IInfosSetLog
 		}
-		
+
 	}
 
 	component Logger {
 		provides log: IInfosSetLog
 	}
-	
+
+	component ActionsSystem {
+		requires signalLog: ISignalLog
+		provides addAction: IAddAction
+		provides getLog: IInfosGetLog
+	}
+
 	component System {
-		provides perceptionSystem : IPercevoir
+		provides perceptionSystem: IPercevoir
 		provides control: IControl
 		provides infosLog: IInfosGetLog
 		provides actionsSurAgent: IDemandeActionsAgent
 		requires createAgents: ICreateAgentAvecProxy
 		requires actionsSurAgents: IActionsAgent
+
+		requires signalLog: ISignalLog
 		
-		requires signalLog: ISignalLog 
+		part actionsSystem: ActionsSystem{
+			bind signalLog to signalLog
+		}
 	}
-	
+
 	component IHM {
 		provides infosLog: IInfosSetLog
 		requires controlIHM: IControl
 	}
-	
+
 	component BigComponent {
 		provides control: IControl
 		provides gestionLogger: IGestionLogger
-		
-		part system: System{
+
+		part system: System {
 			bind createAgents to agents.createAgentAvecProxy
 			bind actionsSurAgents to agents.actionsAgentsProxy
 			bind signalLog to logDispatcher.signalLog
 		}
-		
-		part agents : AgentsAvecProxyEcosystem{
+
+		part agents: AgentsAvecProxyEcosystem {
 			bind percevoirAP to system.perceptionSystem
 			bind demandeActionAP to system.actionsSurAgent
 		}
-		
-		part logDispatcher: LogDispatcherEcosystem{
+
+		part logDispatcher: LogDispatcherEcosystem {
 			bind logsEntrant to system.infosLog
 		}
-		
-		part ihm : IHM{
+
+		part ihm: IHM {
 			bind controlIHM to system.control
 		}
-		
+
 	}
-	
 
 }
