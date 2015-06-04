@@ -75,6 +75,7 @@ public class AgirAgentImpl extends AgirAgent {
 		
 		if (requires().demandeActionAgent().deplacer(infos, oldPosition, null, position)) {
 			self.setPosition(position);
+			self.ajouterEnergie(-vitesse);
 		}
 	}
 	
@@ -120,6 +121,7 @@ public class AgirAgentImpl extends AgirAgent {
 		if (requires().demandeActionAgent().deplacer(infos, oldPosition,
 				self.getBoitePossede(), newPosition)) {
 			self.setPosition(positionAgent);
+			self.ajouterEnergie(-vitesse);
 		}
 	}
 	
