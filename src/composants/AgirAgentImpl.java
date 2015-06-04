@@ -19,11 +19,6 @@ public class AgirAgentImpl extends AgirAgent {
 			@Override
 			public void agir(DecisionAgentPrise decisionAgent, AgentImpl self, IInfos boitePossede) {
 				
-				if(decisionAgent == null){
-					System.out.println("lolz");
-					return;
-				}
-				
 				switch (decisionAgent.getDecisionsAgent()) {
 				case DEPLACEMENT_ALEATOIRE:
 					marcherAleatoirement(self);
@@ -60,6 +55,7 @@ public class AgirAgentImpl extends AgirAgent {
 	private void marcherAleatoirement(AgentImpl self) {
 		Random random = new Random();
 		IInfos infos = self.make_infosAgent();
+		Position oldPosition = new Position(infos.getPosition().getX(), infos.getPosition().getY());
 		Position position = new Position();
 		position.setX(infos.getPosition().getX());
 		position.setY(infos.getPosition().getY());
@@ -77,7 +73,7 @@ public class AgirAgentImpl extends AgirAgent {
 			position.setY(randY);
 		}
 		
-		if (requires().demandeActionAgent().deplacer(infos, position, null)) {
+		if (requires().demandeActionAgent().deplacer(infos, oldPosition, null, position)) {
 			self.setPosition(position);
 		}
 	}
@@ -93,6 +89,7 @@ public class AgirAgentImpl extends AgirAgent {
 	private void allerVersElement(IInfos element, AgentImpl self) {
 		IInfos infos = self.make_infosAgent();
 		Position posElement = element.getPosition();
+		Position oldPosition = new Position(infos.getPosition().getX(), infos.getPosition().getY());
 		Position newPosition = new Position();
 		Position positionAgent = new Position();
 		positionAgent.setX(infos.getPosition().getX());
@@ -120,8 +117,8 @@ public class AgirAgentImpl extends AgirAgent {
 			positionAgent = newPosition;
 		}
 
-		if (requires().demandeActionAgent().deplacer(infos, positionAgent,
-				self.getBoitePossede())) {
+		if (requires().demandeActionAgent().deplacer(infos, oldPosition,
+				self.getBoitePossede(), newPosition)) {
 			self.setPosition(positionAgent);
 		}
 	}
