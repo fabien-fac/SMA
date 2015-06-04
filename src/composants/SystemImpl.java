@@ -316,13 +316,14 @@ public class SystemImpl extends SMA.System {
 			public boolean deplacer(IInfos agent, Position newPos,
 					IInfos boitePossede) {
 				boolean res = false;
+				Position positionOrigine = null;
 				if (isValidPosition(newPos)) {
 					synchronized (lockGrille) {
 						Case cDest = grille[newPos.getX()][newPos.getY()];
 						if (!cDest.contientAgent()) {
-
-							Case cOrigine = grille[agent.getPosition().getX()][agent
-									.getPosition().getY()];
+							positionOrigine = new Position(agent.getPosition().getX(), agent
+									.getPosition().getY());
+							Case cOrigine = grille[positionOrigine.getX()][positionOrigine.getY()];
 							cOrigine.retirerElement(agent);
 
 							cDest.addElement(agent);
@@ -340,7 +341,7 @@ public class SystemImpl extends SMA.System {
 						action.setAction(Actions.DEPLACEMENT);
 					}
 					action.setAgent(agent);
-					action.setPosition(newPos);
+					action.setPosition(positionOrigine);
 
 					addAction(action);
 				}
