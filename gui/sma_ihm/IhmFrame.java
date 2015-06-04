@@ -82,6 +82,14 @@ public class IhmFrame extends javax.swing.JFrame {
     }
     
     /**
+     * 
+     */
+    public void suicideAgent(IInfos agent) {
+    	grille.suicideAgent(agent);
+    }
+    
+    
+    /**
      * Indique à l'ihm qu'un robot prend une boite
      * @param agent
      * @param boite

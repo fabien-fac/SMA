@@ -19,6 +19,11 @@ public class AgirAgentImpl extends AgirAgent {
 			@Override
 			public void agir(DecisionAgentPrise decisionAgent, AgentImpl self, IInfos boitePossede) {
 				
+				if(decisionAgent == null){
+					System.out.println("lolz");
+					return;
+				}
+				
 				switch (decisionAgent.getDecisionsAgent()) {
 				case DEPLACEMENT_ALEATOIRE:
 					marcherAleatoirement(self);
@@ -55,17 +60,25 @@ public class AgirAgentImpl extends AgirAgent {
 	private void marcherAleatoirement(AgentImpl self) {
 		Random random = new Random();
 		IInfos infos = self.make_infosAgent();
-		Position position = infos.getPosition();
-		int randX = random
-				.nextInt(((position.getX() + 1) - (position.getX() - 1)) + 1)
-				+ (position.getX() - 1);
-		int randY = random
-				.nextInt(((position.getY() + 1) - (position.getY() - 1)) + 1)
-				+ (position.getY() - 1);
+		Position position = new Position();
+		position.setX(infos.getPosition().getX());
+		position.setY(infos.getPosition().getY());
+		int vitesse = getVitesseDeplacement(self);
+		
+		for(int i=0; i<vitesse; i++){
+			int randX = random
+					.nextInt(((position.getX() + 1) - (position.getX() - 1)) + 1)
+					+ (position.getX() - 1);
+			int randY = random
+					.nextInt(((position.getY() + 1) - (position.getY() - 1)) + 1)
+					+ (position.getY() - 1);
 
-		Position pos = new Position(randX, randY);
-		if (requires().demandeActionAgent().deplacer(infos, pos, null)) {
-			self.setPosition(pos);
+			position.setX(randX);
+			position.setY(randY);
+		}
+		
+		if (requires().demandeActionAgent().deplacer(infos, position, null)) {
+			self.setPosition(position);
 		}
 	}
 	
@@ -77,31 +90,39 @@ public class AgirAgentImpl extends AgirAgent {
 		}
 	}
 	
-	private void allerVersElement(IInfos boite, AgentImpl self) {
+	private void allerVersElement(IInfos element, AgentImpl self) {
 		IInfos infos = self.make_infosAgent();
-		Position posElement = boite.getPosition();
+		Position posElement = element.getPosition();
 		Position newPosition = new Position();
-		Position position = infos.getPosition();
+		Position positionAgent = new Position();
+		positionAgent.setX(infos.getPosition().getX());
+		positionAgent.setY(infos.getPosition().getY());
 
-		if (posElement.getX() > position.getX()) {
-			newPosition.setX(position.getX() + 1);
-		} else if (posElement.getX() < position.getX()) {
-			newPosition.setX(position.getX() - 1);
-		} else {
-			newPosition.setX(position.getX());
+		int vitesse = getVitesseDeplacement(self);
+		for(int i=0; i<vitesse; i++){
+			
+			if (posElement.getX() > positionAgent.getX()) {
+				newPosition.setX(positionAgent.getX() + 1);
+			} else if (posElement.getX() < positionAgent.getX()) {
+				newPosition.setX(positionAgent.getX() - 1);
+			} else {
+				newPosition.setX(positionAgent.getX());
+			}
+	
+			if (posElement.getY() > positionAgent.getY()) {
+				newPosition.setY(positionAgent.getY() + 1);
+			} else if (posElement.getY() < positionAgent.getY()) {
+				newPosition.setY(positionAgent.getY() - 1);
+			} else {
+				newPosition.setY(positionAgent.getY());
+			}
+		
+			positionAgent = newPosition;
 		}
 
-		if (posElement.getY() > position.getY()) {
-			newPosition.setY(position.getY() + 1);
-		} else if (posElement.getY() < position.getY()) {
-			newPosition.setY(position.getY() - 1);
-		} else {
-			newPosition.setY(position.getY());
-		}
-
-		if (requires().demandeActionAgent().deplacer(infos, newPosition,
+		if (requires().demandeActionAgent().deplacer(infos, positionAgent,
 				self.getBoitePossede())) {
-			self.setPosition(newPosition);
+			self.setPosition(positionAgent);
 		}
 	}
 	
@@ -119,5 +140,21 @@ public class AgirAgentImpl extends AgirAgent {
 		if (requires().demandeActionAgent().prendreBoite(self.make_infosAgent(), boite)) {
 			self.setBoite(boite);
 		}
+	}
+	
+	private int getVitesseDeplacement(AgentImpl self){
+		int vitesse;
+		IInfos infos = self.make_infosAgent();
+		if(infos.getEnergie() > (2*self.getEnergieInitiale()/3)){
+			vitesse = 3;
+		}
+		else if(infos.getEnergie() > (1*self.getEnergieInitiale()/3)){
+			vitesse = 2;
+		}
+		else{
+			vitesse = 1;
+		}
+		
+		return vitesse;
 	}
 }

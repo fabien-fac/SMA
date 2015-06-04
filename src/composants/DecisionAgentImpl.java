@@ -103,6 +103,12 @@ public class DecisionAgentImpl extends DecisionAgent{
 					}
 
 				}
+				
+				if(decisionAgent == null){
+					decisionAgent = new DecisionAgentPrise();
+					decisionAgent.setDecisionsAgent(DecisionsAgent.DEPLACEMENT_ALEATOIRE);
+				}
+				
 				return decisionAgent;
 				
 			}

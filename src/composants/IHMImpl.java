@@ -41,7 +41,7 @@ public class IHMImpl extends IHM {
 
 			@Override
 			public void setNouveauElement(IInfos nouveauElement) {
-				// TODO Auto-generated method stub
+				ihmFrame.setInfoCase(nouveauElement);
 
 			}
 

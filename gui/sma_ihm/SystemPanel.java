@@ -59,6 +59,20 @@ public class SystemPanel extends javax.swing.JPanel {
 		ihmFrame.changerVitesseApplication(vitesse);
 	}
 	
+	/**
+	 * Met en pause l'application
+	 */
+	public void mettreEnPauseApplication(){
+		ihmFrame.mettreEnPauseApplication();
+	}
+	
+	/**
+	 * Relance l'application
+	 */
+	public void relancerApplication() {
+		ihmFrame.relancerApplication();
+	}
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sma_ihm.ControlePanel controlePanel2;
     private sma_ihm.InformationPanel informationPanel2;

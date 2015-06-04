@@ -25,6 +25,7 @@ public class ControlePanel extends javax.swing.JPanel {
 	private final int SPINNER_INIT_VALUE = 5;
 
 	private SystemPanel pere;
+	private boolean estEnPause = false;
 
 	/**
 	 * Creates new form ControlePanel
@@ -44,7 +45,7 @@ public class ControlePanel extends javax.swing.JPanel {
 	private void initComponents() {
 
 		startBouton = new javax.swing.JButton();
-		stopBouton = new javax.swing.JButton();
+		pauseBouton = new javax.swing.JButton();
 
 		// Create a number spinner that only handles values in the range [0,100]
 		spinnerChangeSpeed = new javax.swing.JSpinner(new SpinnerNumberModel(
@@ -65,8 +66,8 @@ public class ControlePanel extends javax.swing.JPanel {
 			}
 		});
 
-		stopBouton.setText("Stop");
-		stopBouton.addActionListener(new java.awt.event.ActionListener() {
+		pauseBouton.setText("Pause");
+		pauseBouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				stopSystemBoutonActionPerformed(evt);
 			}
@@ -87,7 +88,7 @@ public class ControlePanel extends javax.swing.JPanel {
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 										40, Short.MAX_VALUE)
-								.addComponent(stopBouton).addContainerGap()));
+								.addComponent(pauseBouton).addContainerGap()));
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(
@@ -99,13 +100,21 @@ public class ControlePanel extends javax.swing.JPanel {
 												.addComponent(startBouton)
 												.addComponent(
 														spinnerChangeSpeed)
-												.addComponent(stopBouton))
+												.addComponent(pauseBouton))
 								.addContainerGap(37, Short.MAX_VALUE)));
 
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void stopSystemBoutonActionPerformed(java.awt.event.ActionEvent evt) {
-
+		if(!estEnPause){
+			pauseBouton.setText("Relancer");
+			pere.mettreEnPauseApplication();
+			estEnPause = true;
+		} else {
+			pauseBouton.setText("Pause");
+			pere.relancerApplication();
+			estEnPause = false;
+		}
 	}
 
 	private void startSystemBoutonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +133,7 @@ public class ControlePanel extends javax.swing.JPanel {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton startBouton;
-	private javax.swing.JButton stopBouton;
+	private javax.swing.JButton pauseBouton;
 	private javax.swing.JSpinner spinnerChangeSpeed;
 	// End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,8 @@
 package composants;
 
+import interfaces.IInfos;
 import classes.Position;
 import enums.Types;
-import interfaces.IInfos;
 
 public class BoiteImpl implements IInfos{
 	

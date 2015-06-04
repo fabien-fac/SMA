@@ -18,6 +18,7 @@ import enums.Types;
 public class AgentImpl extends Agent {
 
 	private String nom;
+	private int energieInitiale;
 	private int energie;
 	private String couleur;
 	private Position position;
@@ -107,7 +108,8 @@ public class AgentImpl extends Agent {
 	protected void start() {
 
 		List<IInfos> nidsList = requires().demandeAction().getListNids();
-		energie = requires().demandeAction().getInitialEnergie();
+		energieInitiale = requires().demandeAction().getInitialEnergie();
+		energie = energieInitiale;
 		vitesse = requires().demandeAction().getVitesse();
 
 		for (IInfos nid : nidsList) {
@@ -126,7 +128,6 @@ public class AgentImpl extends Agent {
 						e.printStackTrace();
 					}
 				}
-				System.out.println("fin agent");
 			}
 
 		}.start();
@@ -144,7 +145,7 @@ public class AgentImpl extends Agent {
 				.decisionAgent()
 				.getDecision(infosElementAutour, infosElementAPosition,
 						make_infosAgent(), boitePossede);
-		
+
 		parts().action().action().agir(decision, this, boitePossede);
 	}
 
@@ -159,12 +160,16 @@ public class AgentImpl extends Agent {
 	public void setBoite(IInfos boite) {
 		boitePossede = boite;
 	}
-	
+
 	public Map<String, IInfos> getNids() {
 		return nids;
 	}
 
 	public IInfos getBoitePossede() {
 		return boitePossede;
+	}
+
+	public int getEnergieInitiale() {
+		return energieInitiale;
 	}
 }
