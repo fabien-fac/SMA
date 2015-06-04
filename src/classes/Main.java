@@ -12,7 +12,7 @@ public class Main {
 		
 		bigComponent.control().changeVitesse(1000);
 		bigComponent.control().setNombreBoites(15);
-		bigComponent.control().setNombreAgents(5);
+		bigComponent.control().setNombreAgents(15);
 		
 		LoggerImpl logger = new LoggerImpl();
 		bigComponent.gestionLogger().ajoutLogger(logger.getInfosSetLog());

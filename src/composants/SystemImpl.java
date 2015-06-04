@@ -18,11 +18,11 @@ import classes.Position;
 import enums.Actions;
 import enums.Couleurs;
 
-public class SystemImpl extends SMA.System{
-	
+public class SystemImpl extends SMA.System {
+
 	private final int INITIAL_ENERGIE_AGENT = 500;
 	private int initalVitesseAgent = 1000;
-	
+
 	private int ecartEntreNids = 2;
 	private int nbLignes = 50;
 	private int nbColonnes = 50;
@@ -37,14 +37,14 @@ public class SystemImpl extends SMA.System{
 	private final Object lockGrille = new Object();
 	private final Object lockActions = new Object();
 	private boolean isStarted = false;
-	
+
 	private List<Action> actions = new ArrayList<Action>();
 	private long cptActions = 0;
-	
+
 	private Timer timer = new Timer();
 	private int delaisApparitionBoite = 2000;
 	private int nbBoiteApparition = 1;
-	
+
 	public SystemImpl() {
 		for (int i = 0; i < nbLignes; i++) {
 			for (int y = 0; y < nbColonnes; y++) {
@@ -54,10 +54,11 @@ public class SystemImpl extends SMA.System{
 	}
 
 	private void placerBoites() {
-		for(int i=0; i<nbBoites; i++){
+		for (int i = 0; i < nbBoites; i++) {
 			Position pos = getRandomPositionInGrille();
-			if(!grille[pos.getX()][pos.getY()].contientBoite()){
-				IInfos boite = new BoiteImpl("Boite"+cptBoites, getRandomCouleur(), pos);
+			if (!grille[pos.getX()][pos.getY()].contientBoite()) {
+				IInfos boite = new BoiteImpl("Boite" + cptBoites,
+						getRandomCouleur(), pos);
 				placerElementDansGrille(boite, pos);
 				cptBoites++;
 			}
@@ -67,32 +68,36 @@ public class SystemImpl extends SMA.System{
 	private void placerNids() {
 		int xb1 = nbColonnes / 2;
 		int yb1 = 0;
-		
+
 		int xb2 = (nbColonnes / 2) + ecartEntreNids;
 		int yb2 = 0;
-		
+
 		int xb3 = nbColonnes / 2;
 		int yb3 = ecartEntreNids;
-		
-		IInfos nidBleu = new NidImpl("Nid bleu", Couleurs.BLEU.toString(), new Position(xb1, yb1));
-		IInfos nidVert = new NidImpl("Nid vert", Couleurs.VERT.toString(), new Position(xb2, yb2));
-		IInfos nidRouge = new NidImpl("Nid rouge", Couleurs.ROUGE.toString(), new Position(xb3, yb3));
-		
+
+		IInfos nidBleu = new NidImpl("Nid bleu", Couleurs.BLEU.toString(),
+				new Position(xb1, yb1));
+		IInfos nidVert = new NidImpl("Nid vert", Couleurs.VERT.toString(),
+				new Position(xb2, yb2));
+		IInfos nidRouge = new NidImpl("Nid rouge", Couleurs.ROUGE.toString(),
+				new Position(xb3, yb3));
+
 		nids.add(nidBleu);
 		nids.add(nidRouge);
 		nids.add(nidVert);
-		
+
 		placerElementDansGrille(nidBleu, nidBleu.getPosition());
 		placerElementDansGrille(nidVert, nidVert.getPosition());
 		placerElementDansGrille(nidRouge, nidRouge.getPosition());
-		
+
 	}
-	
+
 	private void placerAgents() {
-		for(int i =0; i < nbAgents; i++){
+		for (int i = 0; i < nbAgents; i++) {
 			Position pos = getRandomPositionInGrille();
-			if(!grille[pos.getX()][pos.getY()].contientAgent()){
-				ajoutNewAgent("agent"+cptAgents, pos, getRandomCouleur());
+			if (!grille[pos.getX()][pos.getY()].contientAgent()) {
+				Position posAgent = new Position(pos.getX(), pos.getY());
+				ajoutNewAgent("agent" + cptAgents, posAgent, getRandomCouleur());
 				cptAgents++;
 			}
 		}
@@ -106,19 +111,21 @@ public class SystemImpl extends SMA.System{
 			// Retourne les éléments autour d'une position donnée
 			public List<IInfos> getInfosElementAutour(Position position) {
 				List<IInfos> infos = new ArrayList<IInfos>();
-				
-				for(int i = position.getX() -taillePerceptionAgent; i < position.getX() + taillePerceptionAgent; i++){
-					for(int y= position.getY() - taillePerceptionAgent; y < position.getY() + taillePerceptionAgent; y++){
+
+				for (int i = position.getX() - taillePerceptionAgent; i < position
+						.getX() + taillePerceptionAgent; i++) {
+					for (int y = position.getY() - taillePerceptionAgent; y < position
+							.getY() + taillePerceptionAgent; y++) {
 						Position position2 = new Position(i, y);
-						if(isValidPosition(position2)){
+						if (isValidPosition(position2)) {
 							Case c = grille[i][y];
-							if(!c.caseVide()){
+							if (!c.caseVide()) {
 								infos.addAll(c.getElements());
 							}
 						}
 					}
 				}
-				
+
 				return infos;
 			}
 
@@ -126,30 +133,31 @@ public class SystemImpl extends SMA.System{
 			// Retourne les éléménts présents à une position donnée
 			public List<IInfos> getInfosElementAPosition(Position position) {
 				List<IInfos> infos = new ArrayList<IInfos>();
-				
-				if(isValidPosition(position)){
-					infos.addAll(grille[position.getX()][position.getY()].getElements());
+
+				if (isValidPosition(position)) {
+					infos.addAll(grille[position.getX()][position.getY()]
+							.getElements());
 				}
 				return infos;
 			}
-			
+
 		};
 	}
 
 	@Override
 	protected IControl make_control() {
 		return new IControl() {
-			
+
 			@Override
 			public void modePasAPas(boolean actif) {
 				requires().actionsSurAgents().setPasAPas(actif);
 			}
-			
+
 			@Override
 			public void mettreEnPause(boolean pause) {
 				requires().actionsSurAgents().setPause(pause);
 			}
-			
+
 			@Override
 			public void changeVitesse(int vitesse) {
 				initalVitesseAgent = vitesse;
@@ -158,15 +166,15 @@ public class SystemImpl extends SMA.System{
 
 			@Override
 			public void lancerSystem() {
-				if(!isStarted){
+				if (!isStarted) {
 					isStarted = true;
 
 					placerNids();
 					placerBoites();
 					placerAgents();
-					
+
 					avertireLoggers();
-					timer.schedule(new PopBoiteTask(),delaisApparitionBoite);
+					timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
 				}
 			}
 
@@ -177,7 +185,7 @@ public class SystemImpl extends SMA.System{
 
 			@Override
 			public void setNombreBoites(int _nbBoites) {
-				nbBoites =_nbBoites;
+				nbBoites = _nbBoites;
 			}
 
 			@Override
@@ -190,14 +198,15 @@ public class SystemImpl extends SMA.System{
 	}
 
 	private void ajoutNewAgent(String nom, Position position, String couleur) {
-		IInfos agent = requires().createAgents().createAgentAvecProxy(nom, position, couleur);
+		IInfos agent = requires().createAgents().createAgentAvecProxy(nom,
+				position, couleur);
 		placerElementDansGrille(agent, position);
 	}
-	
-	private void placerElementDansGrille(IInfos element, Position position){
-		if(isValidPosition(position)){
+
+	private void placerElementDansGrille(IInfos element, Position position) {
+		if (isValidPosition(position)) {
 			Case c = grille[position.getX()][position.getY()];
-			if(!c.hasSameElementType(element)){
+			if (!c.hasSameElementType(element)) {
 				c.addElement(element);
 				grille[position.getX()][position.getY()] = c;
 			}
@@ -209,16 +218,16 @@ public class SystemImpl extends SMA.System{
 				&& position.getX() < nbColonnes && position.getY() < nbLignes);
 	}
 
-	private Position getRandomPositionInGrille(){
-		
+	private Position getRandomPositionInGrille() {
+
 		int randX = random.nextInt(nbLignes);
 		int randY = random.nextInt(nbColonnes);
-		
+
 		return new Position(randX, randY);
 	}
-	
-	public String getRandomCouleur(){
-		
+
+	public String getRandomCouleur() {
+
 		String couleur;
 		int i = random.nextInt(3 + 1);
 		switch (i) {
@@ -232,106 +241,108 @@ public class SystemImpl extends SMA.System{
 		case 2:
 			couleur = Couleurs.ROUGE.toString();
 			break;
-			
+
 		default:
 			couleur = Couleurs.BLEU.toString();
 			break;
 		}
-		
+
 		return couleur;
 	}
 
 	@Override
 	protected IDemandeActionsAgent make_actionsSurAgent() {
 		return new IDemandeActionsAgent() {
-			
+
 			@Override
 			public boolean prendreBoite(IInfos agent, IInfos boite) {
 				boolean res = false;
 				synchronized (lockGrille) {
-					Case c = grille[boite.getPosition().getX()][boite.getPosition().getY()];
-					if(c.contientBoite(boite)){
+					Case c = grille[boite.getPosition().getX()][boite
+							.getPosition().getY()];
+					if (c.contientBoite(boite)) {
 						c.retirerElement(boite);
 						res = true;
 					}
 				}
-				
-				if(res){
+
+				if (res) {
 					Action action = new Action();
 					action.setAction(Actions.PRENDRE_BOITE);
 					action.setAgent(agent);
 					action.setBoite(boite);
-					
+
 					addAction(action);
 				}
-				
+
 				return res;
 			}
-			
+
 			@Override
 			public int deposerBoite(IInfos agent, IInfos boite, IInfos nid) {
-				
+
 				int energie = -1;
-				
+
 				synchronized (lockGrille) {
-					Case c = grille[agent.getPosition().getX()][agent.getPosition().getY()];
-					if(!c.contientBoite()){
+					Case c = grille[agent.getPosition().getX()][agent
+							.getPosition().getY()];
+					if (!c.contientBoite()) {
 						c.addElement(boite);
-						
-						if(agent.getCouleur().equals(boite.getCouleur())){
-							energie = 2*INITIAL_ENERGIE_AGENT/3;
-						}
-						else{
-							energie = INITIAL_ENERGIE_AGENT/3;
+
+						if (agent.getCouleur().equals(boite.getCouleur())) {
+							energie = 2 * INITIAL_ENERGIE_AGENT / 3;
+						} else {
+							energie = INITIAL_ENERGIE_AGENT / 3;
 						}
 					}
 				}
-				
-				if(energie > -1){
+
+				if (energie > -1) {
 					Action action = new Action();
 					action.setAction(Actions.DEPOSER_BOITE);
 					action.setAgent(agent);
 					action.setBoite(boite);
 					action.setNid(nid);
-					
+
 					addAction(action);
 				}
-				
+
 				return energie;
 			}
-			
+
 			@Override
-			public boolean deplacer(IInfos agent, Position newPos, IInfos boitePossede) {
+			public boolean deplacer(IInfos agent, Position newPos,
+					IInfos boitePossede) {
 				boolean res = false;
-				if(isValidPosition(newPos)){
+				if (isValidPosition(newPos)) {
 					synchronized (lockGrille) {
 						Case cDest = grille[newPos.getX()][newPos.getY()];
-						if(!cDest.contientAgent()){
-							
-							Case cOrigine = grille[agent.getPosition().getX()][agent.getPosition().getY()];
+						if (!cDest.contientAgent()) {
+
+							Case cOrigine = grille[agent.getPosition().getX()][agent
+									.getPosition().getY()];
 							cOrigine.retirerElement(agent);
-							
+
 							cDest.addElement(agent);
 							res = true;
 						}
 					}
 				}
-				
-				if(res){
+
+				if (res) {
 					Action action = new Action();
-					if(boitePossede != null){
+					if (boitePossede != null) {
 						action.setAction(Actions.DEPLACEMENT_AVEC_BOITE);
 						action.setBoite(boitePossede);
-					}
-					else{
+					} else {
 						action.setAction(Actions.DEPLACEMENT);
 					}
 					action.setAgent(agent);
 					action.setPosition(newPos);
-					
+
 					addAction(action);
 				}
-				
+
 				return res;
 			}
 
@@ -348,13 +359,14 @@ public class SystemImpl extends SMA.System{
 			@Override
 			public void suicide(IInfos agent) {
 				synchronized (lockGrille) {
-					grille[agent.getPosition().getX()][agent.getPosition().getY()].retirerElement(agent);
+					grille[agent.getPosition().getX()][agent.getPosition()
+							.getY()].retirerElement(agent);
 				}
 
 				Action action = new Action();
 				action.setAction(Actions.SUICIDE_AGENT);
 				action.setAgent(agent);
-				
+
 				addAction(action);
 			}
 
@@ -374,23 +386,23 @@ public class SystemImpl extends SMA.System{
 			}
 		};
 	}
-	
-	private Action getActionFromList(int idAction){
+
+	private Action getActionFromList(int idAction) {
 		Action action = null;
 		synchronized (lockActions) {
-			if(idAction <= cptActions){
+			if (idAction <= cptActions) {
 				action = actions.get(idAction);
 			}
 			return action;
 		}
-		
+
 	}
-	
-	private void addAction(Action action){
+
+	private void addAction(Action action) {
 		synchronized (lockActions) {
 			action.setId(cptActions);
 			actions.add((int) cptActions, action);
-			
+
 			requires().signalLog().signalNewLog((int) cptActions);
 			cptActions++;
 		}
@@ -403,31 +415,33 @@ public class SystemImpl extends SMA.System{
 		for (int i = 0; i < nbLignes; i++) {
 			for (int y = 0; y < nbColonnes; y++) {
 				Case c = grille[i][y];
-				if(!c.caseVide()){
+				if (!c.caseVide()) {
 					infos.addAll(c.getElements());
 				}
 			}
 		}
-		
+
 		action.setNouveauxElements(infos);
 		addAction(action);
 	}
-	
-	class PopBoiteTask extends TimerTask{
+
+	class PopBoiteTask extends TimerTask {
 
 		@Override
 		public void run() {
-			
-			for(int i=0; i < nbBoiteApparition; i++){
+
+			for (int i = 0; i < nbBoiteApparition; i++) {
 				Position position;
-				do{
+				do {
 					position = getRandomPositionInGrille();
-				}while(grille[position.getX()][position.getY()].contientBoite());
-				
-				IInfos boite = new BoiteImpl("Boite"+cptBoites, getRandomCouleur(), position);
+				} while (grille[position.getX()][position.getY()]
+						.contientBoite());
+
+				IInfos boite = new BoiteImpl("Boite" + cptBoites,
+						getRandomCouleur(), position);
 				placerElementDansGrille(boite, position);
 				cptBoites++;
-				
+
 				Action action = new Action();
 				action.setAction(Actions.NOUVEL_ELEMENT);
 				List<IInfos> infos = new ArrayList<IInfos>();
@@ -435,10 +449,10 @@ public class SystemImpl extends SMA.System{
 				action.setNouveauxElements(infos);
 				addAction(action);
 			}
-			
+
 			timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
 		}
-		
+
 	}
 
 }
