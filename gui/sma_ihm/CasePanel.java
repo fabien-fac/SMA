@@ -79,14 +79,13 @@ public class CasePanel extends javax.swing.JPanel {
     
 	public void setInfoPrendreBoite(IInfos agent, IInfos boite) {
 		robotLabel.setColorLabel(agent.getCouleur());
-		boiteLabel.setColorLabel(boite.getCouleur());
+		boiteLabel.viderLabel();
 		validate();
 	}
 	
 	public void setInfoDeposerBoite(IInfos agent, IInfos boite, IInfos nid) {
 		robotLabel.setColorLabel(agent.getCouleur());
 		boiteLabel.viderLabel();
-//		supprimeInfoListe(Types.BOITE.toString());
 		validate();
 	}
 	
@@ -112,21 +111,17 @@ public class CasePanel extends javax.swing.JPanel {
 	
 	public void effacerTraceRobot () {
 		robotLabel.viderLabel();
-//		supprimeInfoListe(Types.AGENT.toString());
 		validate();
 	}
 	
 	public void effacerTraceRobotBoite () {
 		robotLabel.viderLabel();
-//		supprimeInfoListe(Types.AGENT.toString());
 		/* S'il n'y a qu'une seule boite dans la case */
 		if(indexBoiteNonPorte == -1){
 			boiteLabel.viderLabel();
-//			supprimeInfoListe(Types.BOITE.toString());
 		/* S'il y a deux boite dans la case */
 		} else {
 			boiteLabel2.viderLabel();
-//			supprimeInfoListe(Types.BOITE.toString(), indexBoiteNonPorte);
 		}
 		
 		validate();
@@ -153,33 +148,9 @@ public class CasePanel extends javax.swing.JPanel {
 		}
 		return null;
 	}
-	
-	public void supprimeInfoListe (String type) {
-		int i = 0;
-		for (IInfos iInfos : infoList) {
-			if(iInfos.getType().equals(type)) {
-				infoList.remove(i);
-			}
-			i++;
-		}
-	}
-	
-	public void supprimeInfoListe (String type, int indexBoiteNonDeplace) {
-		int i = 0;
-		for (IInfos iInfos : infoList) {
-			if(iInfos.getType().equals(type)) {
-				if(i != indexBoiteNonDeplace) {
-					infoList.remove(i);
-				}
-			}
-			i++;
-		}
-	}
-	
 
 	public void suicideAgent(IInfos agent) {
-		// TODO Auto-generated method stub
-		
+		effacerTraceRobot();
 	}
 
     /**

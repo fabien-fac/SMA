@@ -102,8 +102,6 @@ public class GrillePanel extends javax.swing.JPanel {
 	public void setInfoDeplacer(IInfos agent, Position oldPosition,
 			IInfos boitePossede, Position newPosition) {
 		// Si l'agent porte une boite
-		System.out.println("Position new: " + newPosition.getX()+ " : " +newPosition.getY());
-		System.out.println("Position old: " + oldPosition.getX()+ " : " +oldPosition.getY());
 		if (boitePossede != null) {
 			// On vérifie qu'il y a une boite dans la case suivante
 			casePanelTable[newPosition.getX()][newPosition.getY()].containsBoite();

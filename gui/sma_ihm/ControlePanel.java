@@ -5,8 +5,6 @@
  */
 package sma_ihm;
 
-import interfaces.IControl;
-
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
