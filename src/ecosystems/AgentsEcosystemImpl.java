@@ -1,6 +1,5 @@
 package ecosystems;
 
-import interfaces.ICreateAgent;
 import interfaces.IGetAgent;
 
 import java.util.HashMap;
@@ -15,17 +14,6 @@ public class AgentsEcosystemImpl extends Agents{
 	
 	private Map<String, AgentImpl> agents = new HashMap<>();
 	
-	@Override
-	protected ICreateAgent make_createElement() {
-		return new ICreateAgent() {
-			
-			@Override
-			public Agents.Component createAgent(String name, Position position, String couleur) {
-				return createAgent(name, position, couleur);
-			}
-		};
-	}
-
 	@Override
 	protected Agent make_Agent(String nom, Position position, String couleur) {
 		AgentImpl agentImpl = null;

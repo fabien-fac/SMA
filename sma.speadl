@@ -3,7 +3,6 @@ import interfaces.IActionsAgent
 import interfaces.IAddAction
 import interfaces.IAgirAgent
 import interfaces.IControl
-import interfaces.ICreateAgent
 import interfaces.ICreateAgentAvecProxy
 import interfaces.ICreateLogger
 import interfaces.ICreateProxyAgent
@@ -36,7 +35,6 @@ namespace SMA {
 
 	ecosystem Agents {
 
-		provides createElement: ICreateAgent
 		provides getElement: IGetAgent
 
 		species Agent(nom: String, position: Position, couleur: String) {
