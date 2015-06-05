@@ -44,7 +44,6 @@ public class CasePanel extends javax.swing.JPanel {
         ordonneeCase = ordonnee;
         dimensionPanel = dimPanel;
         setSize(dimensionPanel);
-        //setBorder(BorderFactory.createLineBorder(Color.black));
         setBackground(Color.white);
         test = system;
         infoList = new ArrayList<IInfos>();
@@ -91,6 +90,7 @@ public class CasePanel extends javax.swing.JPanel {
 	
 	public void setInfoDeplacerRobot(IInfos agent) {
 		robotLabel.setColorLabel(agent.getCouleur());
+		infoList.add(agent);
 		validate();
 	}
 	
