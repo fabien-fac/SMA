@@ -13,8 +13,6 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import composants.AgentImpl;
-
 import classes.Position;
 import enums.Couleurs;
 import enums.Types;
@@ -36,7 +34,6 @@ public class CasePanel extends javax.swing.JPanel {
     private BoiteLabel boiteLabel;
     private BoiteLabel boiteLabel2;
     private int indexBoiteNonPorte;
-    private AgentImpl agentTmp;
 
     /**
      * Creates new form CasePanel
@@ -93,6 +90,7 @@ public class CasePanel extends javax.swing.JPanel {
 	
 	public void setInfoDeplacerRobot(IInfos agent) {
 		robotLabel.setColorLabel(agent.getCouleur());
+		infoList.add(agent);
 		validate();
 	}
 	
