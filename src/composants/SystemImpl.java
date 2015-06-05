@@ -220,6 +220,12 @@ public class SystemImpl extends SMA.System {
 						.sauvegarderSystem(getAllIInfosInGrille());
 			}
 
+			@Override
+			public void changeTailleGrille(int _nbLignes, int _nbColonnes) {
+				nbLignes = _nbLignes;
+				nbColonnes = _nbColonnes;
+			}
+
 		};
 	}
 

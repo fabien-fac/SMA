@@ -10,4 +10,5 @@ public interface IControl {
 	public void setNombreBoites(int nbBoites);
 	public void gestionApparitionBoites(int nbBoite, int delais);
 	public void persisterSystem();
+	public void changeTailleGrille(int nbLignes, int nbColonnes);
 }
