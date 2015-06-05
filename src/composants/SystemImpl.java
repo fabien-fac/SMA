@@ -33,7 +33,7 @@ public class SystemImpl extends SMA.System {
 	private int cptAgents = 0;
 	private int nbBoites = 0;
 	private int cptBoites = 0;
-	private Case grille[][] = new Case[nbLignes][nbColonnes];
+	private Case grille[][];
 	private Random random = new Random();
 	private List<IInfos> nids = new ArrayList<IInfos>();
 	private final Object lockGrille = new Object();
@@ -44,7 +44,7 @@ public class SystemImpl extends SMA.System {
 	private int nbBoiteApparition = 1;
 
 	public SystemImpl() {
-		
+
 	}
 
 	@Override
@@ -185,12 +185,13 @@ public class SystemImpl extends SMA.System {
 				if (!isStarted) {
 					isStarted = true;
 
+					grille = new Case[nbLignes][nbColonnes];
 					for (int i = 0; i < nbLignes; i++) {
 						for (int y = 0; y < nbColonnes; y++) {
 							grille[i][y] = new Case();
 						}
 					}
-					
+
 					placerNids();
 					placerBoites();
 					placerAgents();
@@ -320,19 +321,18 @@ public class SystemImpl extends SMA.System {
 				synchronized (lockGrille) {
 					Case c = grille[agent.getPosition().getX()][agent
 							.getPosition().getY()];
-					//if (!c.contientBoite()) {
-						
-						if(c.getNid() != null){
-							if (agent.getCouleur().equals(boite.getCouleur())) {
-								energie = 2 * INITIAL_ENERGIE_AGENT / 3;
-							} else {
-								energie = INITIAL_ENERGIE_AGENT / 3;
-							}
+					// if (!c.contientBoite()) {
+
+					if (c.getNid() != null) {
+						if (agent.getCouleur().equals(boite.getCouleur())) {
+							energie = 2 * INITIAL_ENERGIE_AGENT / 3;
+						} else {
+							energie = INITIAL_ENERGIE_AGENT / 3;
 						}
-						else{
-							c.addElement(boite);
-						}
-					//}
+					} else {
+						c.addElement(boite);
+					}
+					// }
 				}
 
 				if (energie > -1) {
@@ -432,12 +432,15 @@ public class SystemImpl extends SMA.System {
 	}
 
 	private List<IInfos> getAllIInfosInGrille() {
+
 		List<IInfos> infos = new ArrayList<IInfos>();
-		for (int i = 0; i < nbLignes; i++) {
-			for (int y = 0; y < nbColonnes; y++) {
-				Case c = grille[i][y];
-				if (!c.caseVide()) {
-					infos.addAll(c.getElements());
+		synchronized (lockGrille) {
+			for (int i = 0; i < nbLignes; i++) {
+				for (int y = 0; y < nbColonnes; y++) {
+					Case c = grille[i][y];
+					if (!c.caseVide()) {
+						infos.addAll(c.getElements());
+					}
 				}
 			}
 		}
