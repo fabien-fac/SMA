@@ -44,11 +44,7 @@ public class SystemImpl extends SMA.System {
 	private int nbBoiteApparition = 1;
 
 	public SystemImpl() {
-		for (int i = 0; i < nbLignes; i++) {
-			for (int y = 0; y < nbColonnes; y++) {
-				grille[i][y] = new Case();
-			}
-		}
+		
 	}
 
 	@Override
@@ -189,6 +185,12 @@ public class SystemImpl extends SMA.System {
 				if (!isStarted) {
 					isStarted = true;
 
+					for (int i = 0; i < nbLignes; i++) {
+						for (int y = 0; y < nbColonnes; y++) {
+							grille[i][y] = new Case();
+						}
+					}
+					
 					placerNids();
 					placerBoites();
 					placerAgents();
@@ -318,15 +320,19 @@ public class SystemImpl extends SMA.System {
 				synchronized (lockGrille) {
 					Case c = grille[agent.getPosition().getX()][agent
 							.getPosition().getY()];
-					if (!c.contientBoite()) {
-						c.addElement(boite);
-
-						if (agent.getCouleur().equals(boite.getCouleur())) {
-							energie = 2 * INITIAL_ENERGIE_AGENT / 3;
-						} else {
-							energie = INITIAL_ENERGIE_AGENT / 3;
+					//if (!c.contientBoite()) {
+						
+						if(c.getNid() != null){
+							if (agent.getCouleur().equals(boite.getCouleur())) {
+								energie = 2 * INITIAL_ENERGIE_AGENT / 3;
+							} else {
+								energie = INITIAL_ENERGIE_AGENT / 3;
+							}
 						}
-					}
+						else{
+							c.addElement(boite);
+						}
+					//}
 				}
 
 				if (energie > -1) {
