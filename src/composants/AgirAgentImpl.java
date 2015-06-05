@@ -122,13 +122,14 @@ public class AgirAgentImpl extends AgirAgent {
 		}
 		
 		boolean moveDone = false;
-		
+		int energieConsome = vitesse;
 		while(!moveDone && !pile.isEmpty()){
 			Position position = pile.pop();
 			if (requires().demandeActionAgent().deplacer(infos, oldPosition,
 					self.getBoitePossede(), position)) {
-				self.setPosition(positionAgent);
-				self.ajouterEnergie(-vitesse);
+				self.setPosition(position);
+				energieConsome--;
+				self.ajouterEnergie(-energieConsome);
 				moveDone = true;
 			}
 		}
