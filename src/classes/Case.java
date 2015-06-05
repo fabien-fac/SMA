@@ -77,4 +77,14 @@ public class Case {
 		}
 		elements = newElements;
 	}
+	
+	public IInfos getNid(){
+		for(IInfos info : elements){
+			if(info.getType().equals(Types.NID.toString())){
+				return info;
+			}
+		}
+		
+		return null;
+	}
 }

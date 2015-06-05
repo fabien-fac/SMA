@@ -220,6 +220,12 @@ public class SystemImpl extends SMA.System {
 						.sauvegarderSystem(getAllIInfosInGrille());
 			}
 
+			@Override
+			public void changeTailleGrille(int _nbLignes, int _nbColonnes) {
+				nbLignes = _nbLignes;
+				nbColonnes = _nbColonnes;
+			}
+
 		};
 	}
 
@@ -313,12 +319,16 @@ public class SystemImpl extends SMA.System {
 					Case c = grille[agent.getPosition().getX()][agent
 							.getPosition().getY()];
 					if (!c.contientBoite()) {
-						c.addElement(boite);
-
-						if (agent.getCouleur().equals(boite.getCouleur())) {
-							energie = 2 * INITIAL_ENERGIE_AGENT / 3;
-						} else {
-							energie = INITIAL_ENERGIE_AGENT / 3;
+						
+						if(c.getNid() != null){
+							if (agent.getCouleur().equals(boite.getCouleur())) {
+								energie = 2 * INITIAL_ENERGIE_AGENT / 3;
+							} else {
+								energie = INITIAL_ENERGIE_AGENT / 3;
+							}
+						}
+						else{
+							c.addElement(boite);
 						}
 					}
 				}
