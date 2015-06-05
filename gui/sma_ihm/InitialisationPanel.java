@@ -207,7 +207,6 @@ public class InitialisationPanel extends javax.swing.JPanel {
         int nbColonne = Integer.parseInt(jFormattedTextField2.getText());
         int nbRobot = Integer.parseInt(jFormattedTextField3.getText());
         int nbBoite = Integer.parseInt(jFormattedTextField3.getText());
-        
         parentPanel.setInformation(nbLigne, nbColonne, nbRobot, nbBoite);
         SwingUtilities.windowForComponent(this).dispose();
     }                                        
