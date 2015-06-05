@@ -5,6 +5,7 @@ import interfaces.IInfos;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.Stack;
 
 import SMA.AgirAgent;
 import classes.DecisionAgentPrise;
@@ -88,10 +89,10 @@ public class AgirAgentImpl extends AgirAgent {
 	}
 	
 	private void allerVersElement(IInfos element, AgentImpl self) {
+		Stack<Position> pile = new Stack<Position>();
 		IInfos infos = self.make_infosAgent();
 		Position posElement = element.getPosition();
 		Position oldPosition = new Position(infos.getPosition().getX(), infos.getPosition().getY());
-		Position newPosition = new Position();
 		Position positionAgent = new Position();
 		positionAgent.setX(infos.getPosition().getX());
 		positionAgent.setY(infos.getPosition().getY());
@@ -99,6 +100,7 @@ public class AgirAgentImpl extends AgirAgent {
 		int vitesse = getVitesseDeplacement(self);
 		for(int i=0; i<vitesse; i++){
 			
+			Position newPosition = new Position();
 			if (posElement.getX() > positionAgent.getX()) {
 				newPosition.setX(positionAgent.getX() + 1);
 			} else if (posElement.getX() < positionAgent.getX()) {
@@ -116,13 +118,21 @@ public class AgirAgentImpl extends AgirAgent {
 			}
 		
 			positionAgent = newPosition;
+			pile.add(newPosition);
 		}
-
-		if (requires().demandeActionAgent().deplacer(infos, oldPosition,
-				self.getBoitePossede(), newPosition)) {
-			self.setPosition(positionAgent);
-			self.ajouterEnergie(-vitesse);
+		
+		boolean moveDone = false;
+		
+		while(!moveDone && !pile.isEmpty()){
+			Position position = pile.pop();
+			if (requires().demandeActionAgent().deplacer(infos, oldPosition,
+					self.getBoitePossede(), position)) {
+				self.setPosition(positionAgent);
+				self.ajouterEnergie(-vitesse);
+				moveDone = true;
+			}
 		}
+		
 	}
 	
 	private void deposerBoite(IInfos nid, AgentImpl self, IInfos boitePossede) {
