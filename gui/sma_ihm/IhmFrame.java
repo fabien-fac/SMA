@@ -63,6 +63,7 @@ public class IhmFrame extends javax.swing.JFrame {
         ligne = nbLigne;
         colonne = nbColonne;
         robot = nbRobot;
+        controleur.setNombreAgents(nbRobot);
     }
     
     /**
