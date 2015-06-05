@@ -62,8 +62,10 @@ public class IhmFrame extends javax.swing.JFrame {
         ligne = nbLigne;
         colonne = nbColonne;
         robot = nbRobot;
-        controleur.setNombreAgents(nbRobot);
-        controleur.changeTailleGrille(nbLigne, nbColonne);
+        boite = nbBoite;
+        controleur.setNombreAgents(robot);
+        controleur.setNombreBoites(boite);
+        controleur.changeTailleGrille(ligne, colonne);
         initialisationInterface();
     }
     
