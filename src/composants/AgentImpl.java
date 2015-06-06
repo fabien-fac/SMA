@@ -24,7 +24,7 @@ public class AgentImpl extends Agent {
 	private Position position;
 
 	private int vitesse = 1000;
-	private boolean actif = true;
+	private boolean actif = false;
 
 	private IInfos boitePossede = null;
 	private Map<String, IInfos> nids = new HashMap<String, IInfos>();

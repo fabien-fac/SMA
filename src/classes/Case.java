@@ -68,6 +68,16 @@ public class Case {
 		return false;
 	}
 
+	public boolean contientNid(){
+		for(IInfos info : elements){
+			if(info.getType().equals(Types.NID.toString())){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void retirerElement(IInfos boite) {
 		List<IInfos> newElements = new ArrayList<IInfos>();
 		for(IInfos info : elements){

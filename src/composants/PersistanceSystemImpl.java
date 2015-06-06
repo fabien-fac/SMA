@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.ElementDTO;
+import classes.EtatInitialDTO;
 import classes.Utils;
 import SMA.PersistanceSystem;
 
@@ -22,7 +23,7 @@ public class PersistanceSystemImpl extends PersistanceSystem {
 		return new IPersistanceSystem() {
 
 			@Override
-			public void sauvegarderSystem(List<IInfos> listInfos) {
+			public void sauvegarderSystem(List<IInfos> listInfos, int vitesseApparitionBoite, int nbBoiteApparition) {
 				try {
 
 					Path currentRelativePath = Paths.get("");
@@ -36,7 +37,13 @@ public class PersistanceSystemImpl extends PersistanceSystem {
 						ElementDTO elementDTO = Utils.iInfosToElementDTO(infos);
 						elements.add(elementDTO);
 					}
-					oos.writeObject(elements);
+					
+					EtatInitialDTO etatInitialDTO = new EtatInitialDTO();
+					etatInitialDTO.setInfos(elements);
+					etatInitialDTO.setVitesseApparitionBoite(String.valueOf(vitesseApparitionBoite));
+					etatInitialDTO.setNbApparitionBoite(String.valueOf(nbBoiteApparition));
+					
+					oos.writeObject(etatInitialDTO);
 					oos.close();
 					fos.close();
 				} catch (IOException ioe) {

@@ -184,19 +184,7 @@ public class SystemImpl extends SMA.System {
 			public void lancerSystem() {
 				if (!isStarted) {
 					isStarted = true;
-
-					grille = new Case[nbLignes][nbColonnes];
-					for (int i = 0; i < nbLignes; i++) {
-						for (int y = 0; y < nbColonnes; y++) {
-							grille[i][y] = new Case();
-						}
-					}
-
-					placerNids();
-					placerBoites();
-					placerAgents();
-
-					avertireLoggers();
+					requires().actionsSurAgents().setPause(false);
 					timer.schedule(new PopBoiteTask(), delaisApparitionBoite);
 				}
 			}
@@ -220,13 +208,29 @@ public class SystemImpl extends SMA.System {
 			@Override
 			public void persisterSystem() {
 				parts().persistanceSystem().persistance()
-						.sauvegarderSystem(getAllIInfosInGrille());
+						.sauvegarderSystem(getAllIInfosInGrille(), delaisApparitionBoite, nbBoiteApparition);
 			}
 
 			@Override
 			public void changeTailleGrille(int _nbLignes, int _nbColonnes) {
 				nbLignes = _nbLignes;
 				nbColonnes = _nbColonnes;
+			}
+
+			@Override
+			public void initialiserSystem() {
+				grille = new Case[nbLignes][nbColonnes];
+				for (int i = 0; i < nbLignes; i++) {
+					for (int y = 0; y < nbColonnes; y++) {
+						grille[i][y] = new Case();
+					}
+				}
+
+				placerNids();
+				placerBoites();
+				placerAgents();
+
+				avertireLoggers();				
 			}
 
 		};
@@ -455,10 +459,11 @@ public class SystemImpl extends SMA.System {
 
 			for (int i = 0; i < nbBoiteApparition; i++) {
 				Position position;
+				Case c;
 				do {
 					position = getRandomPositionInGrille();
-				} while (grille[position.getX()][position.getY()]
-						.contientBoite());
+					c = grille[position.getX()][position.getY()];
+				} while (c.contientBoite() || c.contientNid());
 
 				IInfos boite = new BoiteImpl("Boite" + cptBoites,
 						getRandomCouleur(), position);
