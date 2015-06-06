@@ -6,6 +6,7 @@
 package sma_ihm;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 
@@ -19,15 +20,17 @@ import enums.Couleurs;
 public class BoiteLabel extends JLabel{
 
     private static final String stringBoite = "♦";
-
-	public BoiteLabel() {
+    private static float tailleCarac;
+	public BoiteLabel(Dimension dimensionPanel) {
+		Double width = dimensionPanel.getWidth() / 4;
+    	tailleCarac = width.floatValue();
         setVisible(false);
     }
     
     public void setColorLabel(String color) {
 
         setText(stringBoite);
-        setFont (getFont().deriveFont(15.0f));
+        setFont (getFont().deriveFont(tailleCarac));
         if(color.equals(Couleurs.ROUGE.toString())) {
                 setForeground(Color.RED);
         } else if(color.equals(Couleurs.BLEU.toString())) {

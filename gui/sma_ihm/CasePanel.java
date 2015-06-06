@@ -44,12 +44,13 @@ public class CasePanel extends javax.swing.JPanel {
         ordonneeCase = ordonnee;
         dimensionPanel = dimPanel;
         setSize(dimensionPanel);
+        setPreferredSize(dimensionPanel);
         setBackground(Color.white);
         test = system;
         infoList = new ArrayList<IInfos>();
-        robotLabel = new RobotLabel();
-        boiteLabel = new BoiteLabel();
-        boiteLabel2 = new BoiteLabel();
+        robotLabel = new RobotLabel(dimensionPanel);
+        boiteLabel = new BoiteLabel(dimensionPanel);
+        boiteLabel2 = new BoiteLabel(dimensionPanel);
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         add(boiteLabel);
         add(robotLabel);

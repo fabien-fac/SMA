@@ -30,6 +30,7 @@ public class IhmFrame extends javax.swing.JFrame {
     private int boite;
     private InitialisationDialogue initDialog;
     private static IControl controleur;
+    private boolean isOpen = true;
     
     /**
      * Creates new form InterfaceRobot
@@ -57,8 +58,9 @@ public class IhmFrame extends javax.swing.JFrame {
      * @param nbBoite 
      * @param vitesseAppartionBoite 
      * @param nbApparitionBoite 
+     * @throws InterruptedException 
      */
-    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
+    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) throws InterruptedException {
         ligne = nbLigne;
         colonne = nbColonne;
         robot = nbRobot;
@@ -139,6 +141,10 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * @param controle
 	 */
 
+	public void initialiserSystem() {
+		controleur.initialiserSystem();
+		controleur.persisterSystem();
+	}
     
 	/**
 	 * Lance l'application
@@ -174,6 +180,10 @@ public class IhmFrame extends javax.swing.JFrame {
 	 */
 	public void avancerPasAPasApplication(){
 		controleur.modePasAPas(true);
+	}
+	
+	public void closeInterface() {
+		System.exit(0);
 	}
 
     /**

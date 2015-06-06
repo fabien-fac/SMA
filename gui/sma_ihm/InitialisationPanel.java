@@ -90,19 +90,24 @@ public class InitialisationPanel extends javax.swing.JPanel {
 		jButton2.setText("Valider");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        jButton2ActionPerformed(evt);
+		        try {
+					jButton2ActionPerformed(evt);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		    }
 		});
 
 		jLabel1.setText("Nombre de Lignes : ");
 
-		jLabel2.setText("Nombre max : 100");
+		jLabel2.setText("Nombre max : 99");
 
 		jLabel3.setText("Nombre de Colonnes :");
 
 		jLabel4.setText("Nombre de Robots :");
 
-		jLabel5.setText("Nombre max : 100");
+		jLabel5.setText("Nombre max : 99");
 
 		jButton3.setText("Réinitialise");
 		jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -253,8 +258,9 @@ public class InitialisationPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { 
         SwingUtilities.windowForComponent(this).dispose();
+        parentPanel.closeFrame();
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -266,7 +272,7 @@ public class InitialisationPanel extends javax.swing.JPanel {
         jFormattedTextField6.setText("");
     }                                        
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {                                         
         int nbLigne = Integer.parseInt(jFormattedTextField1.getText());
         int nbColonne = Integer.parseInt(jFormattedTextField2.getText());
         int nbRobot = Integer.parseInt(jFormattedTextField3.getText());

@@ -8,7 +8,9 @@ package sma_ihm;
 import interfaces.IInfos;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.List;
 
 import classes.Position;
@@ -44,12 +46,17 @@ public class GrillePanel extends javax.swing.JPanel {
 	}
 
 	private Dimension calculTailleCase() {
-		return new Dimension(this.getWidth() / nbLigne, this.getHeight()
+		//get local graphics environment
+		GraphicsEnvironment graphicsEnvironment=GraphicsEnvironment.getLocalGraphicsEnvironment();
+		         
+		//get maximum window bounds
+		Rectangle maximumWindowBounds =graphicsEnvironment.getMaximumWindowBounds();
+		Double w = maximumWindowBounds.getWidth();
+		Double h = maximumWindowBounds.getHeight();
+		int width = w.intValue();
+		int height = h.intValue();
+		return new Dimension(width / nbLigne, height
 				/ nbColonne);
-	}
-
-	public void setDimensionGrille(int lignes, int colonne) {
-
 	}
 
 	public void setInfoCase(List<IInfos> info) {
