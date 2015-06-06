@@ -270,9 +270,9 @@ public class InitialisationPanel extends javax.swing.JPanel {
         int nbLigne = Integer.parseInt(jFormattedTextField1.getText());
         int nbColonne = Integer.parseInt(jFormattedTextField2.getText());
         int nbRobot = Integer.parseInt(jFormattedTextField3.getText());
-        int nbBoiteInitiale = Integer.parseInt(jFormattedTextField3.getText());
-        int nbApparitionBoite = Integer.parseInt(jFormattedTextField3.getText());
-        int vitesseAppartionBoite = Integer.parseInt(jFormattedTextField3.getText());
+        int nbBoiteInitiale = Integer.parseInt(jFormattedTextField4.getText());
+        int nbApparitionBoite = Integer.parseInt(jFormattedTextField6.getText());
+        int vitesseAppartionBoite = Integer.parseInt(jFormattedTextField5.getText());
         vitesseAppartionBoite = vitesseAppartionBoite * 1000;
         parentPanel.setInformation(nbLigne, nbColonne, nbRobot, nbBoiteInitiale, nbApparitionBoite, vitesseAppartionBoite);
         SwingUtilities.windowForComponent(this).dispose();

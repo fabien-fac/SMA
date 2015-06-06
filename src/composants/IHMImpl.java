@@ -57,7 +57,7 @@ public class IHMImpl extends IHM {
 	@Override
 	protected void start() {
 		ihmFrame = new IhmFrame(requires().controlIHM());
-		ihmFrame.setTitle("Le SMA c'est super");
+		ihmFrame.setTitle("SMA");
 		ihmFrame.setDefaultCloseOperation(ihmFrame.EXIT_ON_CLOSE);
 		ihmFrame.setVisible(true);
 	}

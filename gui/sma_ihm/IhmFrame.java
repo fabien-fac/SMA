@@ -24,12 +24,11 @@ public class IhmFrame extends javax.swing.JFrame {
 
     private GrillePanel grille;
     private static SystemPanel system;
-    private int ligne = 50;
-    private int colonne = 50;
-    private int robot = 10;
-    private int boite = 20;
+    private int ligne;
+    private int colonne;
+    private int robot;
+    private int boite;
     private InitialisationDialogue initDialog;
-    private static IhmFrame ihmFrame;
     private static IControl controleur;
     
     /**
@@ -190,7 +189,6 @@ public class IhmFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ramasse les boites");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(1940, 1500));
 
@@ -198,7 +196,7 @@ public class IhmFrame extends javax.swing.JFrame {
 
         jMenu1.setText("Menu");
 
-        jMenuItem1.setText("Initialisation");
+        jMenuItem1.setText("Persistance");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -229,9 +227,9 @@ public class IhmFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
+        controleur.persisterSystem();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
