@@ -1,7 +1,8 @@
 package interfaces;
 
-import java.util.List;
+import classes.EtatInitial;
 
 public interface IPersistanceSystem {
-	public void sauvegarderSystem(List<IInfos> infos, int vitesseApparitionBoite, int nbApparitionBoite);
+	public void sauvegarderSystem(EtatInitial etatInitial);
+	public EtatInitial getEtatInitial(String nomFichier);
 }

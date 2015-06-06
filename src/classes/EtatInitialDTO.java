@@ -1,7 +1,5 @@
 package classes;
 
-import interfaces.IInfos;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +14,8 @@ public class EtatInitialDTO implements Serializable{
 	private List<ElementDTO> infos;
 	private String vitesseApparitionBoite;
 	private String nbApparitionBoite;
+	private String nbLignes;
+	private String nbColonnes;
 	
 	public EtatInitialDTO() {
 		infos = new ArrayList<ElementDTO>();
@@ -44,6 +44,21 @@ public class EtatInitialDTO implements Serializable{
 	public void setNbApparitionBoite(String nbApparitionBoite) {
 		this.nbApparitionBoite = nbApparitionBoite;
 	}
-	
+
+	public String getNbLignes() {
+		return nbLignes;
+	}
+
+	public void setNbLignes(String nbLignes) {
+		this.nbLignes = nbLignes;
+	}
+
+	public String getNbColonnes() {
+		return nbColonnes;
+	}
+
+	public void setNbColonnes(String nbColonnes) {
+		this.nbColonnes = nbColonnes;
+	}
 	
 }
