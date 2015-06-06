@@ -16,9 +16,11 @@ import SMA.ActionsSystem;
 import SMA.PersistanceSystem;
 import classes.Action;
 import classes.Case;
+import classes.EtatInitial;
 import classes.Position;
 import enums.Actions;
 import enums.Couleurs;
+import enums.Types;
 
 public class SystemImpl extends SMA.System {
 
@@ -207,8 +209,15 @@ public class SystemImpl extends SMA.System {
 
 			@Override
 			public void persisterSystem() {
+				EtatInitial etatInitial = new EtatInitial();
+				etatInitial.setInfos(getAllIInfosInGrille());
+				etatInitial.setNbApparitionBoite(nbBoiteApparition);
+				etatInitial.setVitesseApparitionBoite(delaisApparitionBoite);
+				etatInitial.setNbLignes(nbLignes);
+				etatInitial.setNbColonnes(nbColonnes);
+
 				parts().persistanceSystem().persistance()
-						.sauvegarderSystem(getAllIInfosInGrille(), delaisApparitionBoite, nbBoiteApparition);
+						.sauvegarderSystem(etatInitial);
 			}
 
 			@Override
@@ -230,7 +239,37 @@ public class SystemImpl extends SMA.System {
 				placerBoites();
 				placerAgents();
 
-				avertireLoggers();				
+				avertireLoggers();
+			}
+
+			@Override
+			public void chargerEtatInitial(String nomFichier) {
+				EtatInitial etatInitial = parts().persistanceSystem()
+						.persistance().getEtatInitial(nomFichier);
+				
+				nbLignes = etatInitial.getNbLignes();
+				nbColonnes = etatInitial.getNbColonnes();
+				delaisApparitionBoite = etatInitial.getVitesseApparitionBoite();
+				nbBoiteApparition = etatInitial.getNbApparitionBoite();
+				
+				grille = new Case[nbLignes][nbColonnes];
+				for (int i = 0; i < nbLignes; i++) {
+					for (int y = 0; y < nbColonnes; y++) {
+						grille[i][y] = new Case();
+					}
+				}
+
+				for (IInfos infos : etatInitial.getInfos()) {
+					if (Types.AGENT.toString().equals(infos.getType())) {
+						ajoutNewAgent(infos.getNom(), infos.getPosition(),
+								infos.getCouleur());
+					} else if (Types.BOITE.toString().equals(infos.getType())) {
+						placerElementDansGrille(infos, infos.getPosition());
+					} else if (Types.NID.toString().equals(infos.getType())) {
+						placerElementDansGrille(infos, infos.getPosition());
+					}
+				}
+
 			}
 
 		};

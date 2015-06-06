@@ -144,6 +144,7 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * Lance l'application
 	 */
 	public void lancerApplication(){
+		controleur.initialiserSystem();
 		controleur.lancerSystem();
 	}
 	

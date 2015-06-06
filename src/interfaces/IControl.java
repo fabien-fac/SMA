@@ -12,4 +12,5 @@ public interface IControl {
 	public void gestionApparitionBoites(int nbBoite, int delais);
 	public void persisterSystem();
 	public void changeTailleGrille(int nbLignes, int nbColonnes);
+	public void chargerEtatInitial(String nomFichier);
 }
