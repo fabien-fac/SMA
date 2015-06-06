@@ -11,6 +11,7 @@ import interfaces.IInfos;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
 import classes.Position;
@@ -150,7 +151,6 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * Lance l'application
 	 */
 	public void lancerApplication(){
-		controleur.initialiserSystem();
 		controleur.lancerSystem();
 	}
 	
@@ -218,10 +218,11 @@ public class IhmFrame extends javax.swing.JFrame {
         jMenuItem2.setText("Charger");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+            	jMenuItem2ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -251,7 +252,14 @@ public class IhmFrame extends javax.swing.JFrame {
     }
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
-        controleur.persisterSystem();
+    	JFileChooser choix = new JFileChooser();
+    	int retour=choix.showOpenDialog(this);
+    	String path = "";
+    	if(retour==JFileChooser.APPROVE_OPTION){
+    	   // chemin absolu du fichier choisi
+    	   path = choix.getSelectedFile().getAbsolutePath();
+    	}
+        controleur.chargerEtatInitial(path);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
