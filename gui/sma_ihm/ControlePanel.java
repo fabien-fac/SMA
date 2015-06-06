@@ -24,6 +24,7 @@ public class ControlePanel extends javax.swing.JPanel {
 
 	private SystemPanel pere;
 	private boolean estEnPause = false;
+	private boolean estInitialiser = false;
 
 	/**
 	 * Creates new form ControlePanel
@@ -57,7 +58,7 @@ public class ControlePanel extends javax.swing.JPanel {
 		});
 		setBorder(javax.swing.BorderFactory.createTitledBorder("Controle"));
 
-		startBouton.setText("Start");
+		startBouton.setText("Init");
 		startBouton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				startSystemBoutonActionPerformed(evt);
@@ -116,8 +117,14 @@ public class ControlePanel extends javax.swing.JPanel {
 	}
 
 	private void startSystemBoutonActionPerformed(java.awt.event.ActionEvent evt) {
-		pere.lancerApplication();
-		startBouton.setEnabled(false);
+		if(!estInitialiser) {
+			pere.initialiserSystem();
+			estInitialiser = true;
+			startBouton.setText("Start");;
+		} else {
+			pere.lancerApplication();
+			startBouton.setEnabled(false);
+		}
 	}
 
 	private void SpinnerChangeSpeedActionPerformed(ChangeEvent evt) {

@@ -59,10 +59,6 @@ public class GrillePanel extends javax.swing.JPanel {
 				/ nbColonne);
 	}
 
-	public void setDimensionGrille(int lignes, int colonne) {
-
-	}
-
 	public void setInfoCase(List<IInfos> info) {
 		for (IInfos iInfos : info) {
 			Position p = iInfos.getPosition();

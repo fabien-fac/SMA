@@ -52,6 +52,10 @@ public class SystemPanel extends javax.swing.JPanel {
 		ihmFrame.lancerApplication();
 	}
 	
+	public void initialiserSystem () {
+		ihmFrame.initialiserSystem();
+	}
+	
 	/**
 	 * Modifie le temps (en seconde) qui s'ecoule entre deux actions d'un agent
 	 */

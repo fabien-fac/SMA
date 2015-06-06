@@ -58,8 +58,9 @@ public class IhmFrame extends javax.swing.JFrame {
      * @param nbBoite 
      * @param vitesseAppartionBoite 
      * @param nbApparitionBoite 
+     * @throws InterruptedException 
      */
-    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
+    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) throws InterruptedException {
         ligne = nbLigne;
         colonne = nbColonne;
         robot = nbRobot;
@@ -140,6 +141,10 @@ public class IhmFrame extends javax.swing.JFrame {
 	 * @param controle
 	 */
 
+	public void initialiserSystem() {
+		controleur.initialiserSystem();
+		controleur.persisterSystem();
+	}
     
 	/**
 	 * Lance l'application

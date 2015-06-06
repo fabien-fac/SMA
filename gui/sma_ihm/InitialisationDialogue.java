@@ -23,7 +23,7 @@ public class InitialisationDialogue extends javax.swing.JDialog {
         setLocationRelativeTo(parentDialog);
     }
     
-    public void setInformation(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
+    public void setInformation(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) throws InterruptedException {
         parentDialog.setConfiguration(nbLigne, nbColonne, nbRobot, nbBoite, nbApparitionBoite, vitesseAppartionBoite);
     }
     
