@@ -91,6 +91,20 @@ public class IhmFrame extends javax.swing.JFrame {
     /**
      * 
      * @param info
+     * @param nbColonnes 
+     * @param nbLignes 
+     */
+    public void setInfoCaseInit(List<IInfos> info, int nbLignes, int nbColonnes) {
+        ligne = nbLignes;
+        colonne = nbColonnes;
+        initialisationInterface();
+        system.isInitialise();
+        grille.setInfoCase(info);
+    }
+    
+    /**
+     * 
+     * @param info
      */
     public void setInfoCase(IInfos info) {
         grille.setInfoCase(info);
@@ -180,10 +194,6 @@ public class IhmFrame extends javax.swing.JFrame {
 	 */
 	public void avancerPasAPasApplication(){
 		controleur.modePasAPas(true);
-	}
-	
-	public void closeInterface() {
-		System.exit(0);
 	}
 
     /**

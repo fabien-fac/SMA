@@ -77,6 +77,10 @@ public class SystemPanel extends javax.swing.JPanel {
 		ihmFrame.relancerApplication();
 	}
 	
+	public void isInitialise () {
+		controlePanel2.isInitialise();
+	}
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sma_ihm.ControlePanel controlePanel2;
     private sma_ihm.InformationPanel informationPanel2;

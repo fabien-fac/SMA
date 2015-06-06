@@ -273,7 +273,7 @@ public class SystemImpl extends SMA.System {
 						placerElementDansGrille(infos, infos.getPosition());
 					}
 				}
-
+				isInitialised = true;
 				avertireLoggers();
 			}
 			

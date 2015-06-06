@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		/**
-		 *   . -type f -name "*.java" | xargs cat | wc -l
+		 *   find . -type f -name "*.java" | xargs cat | wc -l
 		 */
 		
 		SMA.BigComponent.Component bigComponent = new BigComponentImpl().newComponent();

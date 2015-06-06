@@ -260,7 +260,6 @@ public class InitialisationPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { 
         SwingUtilities.windowForComponent(this).dispose();
-        parentPanel.closeFrame();
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         

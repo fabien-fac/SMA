@@ -33,6 +33,12 @@ public class ControlePanel extends javax.swing.JPanel {
 		initComponents();
 		pere = parent;
 	}
+	
+	public void isInitialise () {
+		estInitialiser = true;
+		startBouton.setText("Start");
+		startBouton.validate();
+	}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
