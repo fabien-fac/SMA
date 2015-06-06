@@ -26,6 +26,11 @@ public class InitialisationDialogue extends javax.swing.JDialog {
     public void setInformation(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
         parentDialog.setConfiguration(nbLigne, nbColonne, nbRobot, nbBoite, nbApparitionBoite, vitesseAppartionBoite);
     }
+    
+    public void closeFrame() {
+    	parentDialog.closeInterface();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

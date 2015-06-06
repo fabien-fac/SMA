@@ -30,6 +30,7 @@ public class IhmFrame extends javax.swing.JFrame {
     private int boite;
     private InitialisationDialogue initDialog;
     private static IControl controleur;
+    private boolean isOpen = true;
     
     /**
      * Creates new form InterfaceRobot
@@ -173,6 +174,10 @@ public class IhmFrame extends javax.swing.JFrame {
 	 */
 	public void avancerPasAPasApplication(){
 		controleur.modePasAPas(true);
+	}
+	
+	public void closeInterface() {
+		System.exit(0);
 	}
 
     /**
