@@ -274,8 +274,9 @@ public class SystemImpl extends SMA.System {
 					}
 				}
 
+				avertireLoggers();
 			}
-
+			
 		};
 	}
 
