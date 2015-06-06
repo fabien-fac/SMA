@@ -47,7 +47,6 @@ public class IhmFrame extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         initDialog = new InitialisationDialogue(this, true);
         controleur = controle;
-        initDialog.setLocationRelativeTo(ihmFrame);
         initDialog.setVisible(true);
     }
 
@@ -57,8 +56,10 @@ public class IhmFrame extends javax.swing.JFrame {
      * @param nbColonne
      * @param nbRobot
      * @param nbBoite 
+     * @param vitesseAppartionBoite 
+     * @param nbApparitionBoite 
      */
-    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite) {
+    public void setConfiguration(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
         ligne = nbLigne;
         colonne = nbColonne;
         robot = nbRobot;
@@ -66,6 +67,7 @@ public class IhmFrame extends javax.swing.JFrame {
         controleur.setNombreAgents(robot);
         controleur.setNombreBoites(boite);
         controleur.changeTailleGrille(ligne, colonne);
+        controleur.gestionApparitionBoites(nbApparitionBoite, vitesseAppartionBoite);
         initialisationInterface();
     }
     

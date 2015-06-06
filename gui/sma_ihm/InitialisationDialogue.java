@@ -20,10 +20,11 @@ public class InitialisationDialogue extends javax.swing.JDialog {
         super(parent, modal);
         parentDialog = parent;
         initComponents();
+        setLocationRelativeTo(parentDialog);
     }
     
-    public void setInformation(int nbLigne, int nbColonne, int nbRobot, int nbBoite) {
-        parentDialog.setConfiguration(nbLigne, nbColonne, nbRobot, nbBoite);
+    public void setInformation(int nbLigne, int nbColonne, int nbRobot, int nbBoite, int nbApparitionBoite, int vitesseAppartionBoite) {
+        parentDialog.setConfiguration(nbLigne, nbColonne, nbRobot, nbBoite, nbApparitionBoite, vitesseAppartionBoite);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +38,8 @@ public class InitialisationDialogue extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().add(initialisationPanel1, java.awt.BorderLayout.CENTER);
+        setMinimumSize(new java.awt.Dimension(325, 375));
+        setPreferredSize(new java.awt.Dimension(325, 375));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
