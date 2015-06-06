@@ -34,7 +34,7 @@ public class IHMImpl extends IHM {
 			}
 
 			@Override
-			public void setInfosInitiales(List<IInfos> infosInitiales) {
+			public void setInfosInitiales(List<IInfos> infosInitiales, int nbLignes, int nbColonnes) {
 				ihmFrame.setInfoCase(infosInitiales);
 			}
 

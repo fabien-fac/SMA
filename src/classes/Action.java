@@ -17,6 +17,8 @@ public class Action {
 	private Position oldPosition;
 	private Position newPosition;
 	private List<IInfos> nouveauxElements = new ArrayList<IInfos>();
+	private int nbLignes;
+	private int nbColonnes;
 	
 	public long getId() {
 		return id;
@@ -66,6 +68,18 @@ public class Action {
 	}
 	public void setNouveauxElements(List<IInfos> nouveauxElements) {
 		this.nouveauxElements = nouveauxElements;
+	}
+	public int getNbLignes() {
+		return nbLignes;
+	}
+	public void setNbLignes(int nbLignes) {
+		this.nbLignes = nbLignes;
+	}
+	public int getNbColonnes() {
+		return nbColonnes;
+	}
+	public void setNbColonnes(int nbColonnes) {
+		this.nbColonnes = nbColonnes;
 	}
 	
 }

@@ -43,7 +43,7 @@ public class LogDispactcherEcosystemImpl extends LogDispatcherEcosystem {
 							break;
 						case INITIALISATION:
 							logger.setInfosInitiales(action
-									.getNouveauxElements());
+									.getNouveauxElements(), action.getNbLignes(), action.getNbColonnes());
 							break;
 						case NOUVEL_ELEMENT:
 							logger.setNouveauElement(action
