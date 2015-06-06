@@ -40,6 +40,7 @@ public class SystemImpl extends SMA.System {
 	private List<IInfos> nids = new ArrayList<IInfos>();
 	private final Object lockGrille = new Object();
 	private boolean isStarted = false;
+	private boolean isInitialised = false;
 
 	private Timer timer = new Timer();
 	private int delaisApparitionBoite = 2000;
@@ -228,18 +229,21 @@ public class SystemImpl extends SMA.System {
 
 			@Override
 			public void initialiserSystem() {
-				grille = new Case[nbLignes][nbColonnes];
-				for (int i = 0; i < nbLignes; i++) {
-					for (int y = 0; y < nbColonnes; y++) {
-						grille[i][y] = new Case();
+				if(!isInitialised){
+					isInitialised = true;
+					grille = new Case[nbLignes][nbColonnes];
+					for (int i = 0; i < nbLignes; i++) {
+						for (int y = 0; y < nbColonnes; y++) {
+							grille[i][y] = new Case();
+						}
 					}
+	
+					placerNids();
+					placerBoites();
+					placerAgents();
+	
+					avertireLoggers();
 				}
-
-				placerNids();
-				placerBoites();
-				placerAgents();
-
-				avertireLoggers();
 			}
 
 			@Override
@@ -471,6 +475,8 @@ public class SystemImpl extends SMA.System {
 		action.setAction(Actions.INITIALISATION);
 		List<IInfos> infos = getAllIInfosInGrille();
 		action.setNouveauxElements(infos);
+		action.setNbLignes(nbLignes);
+		action.setNbColonnes(nbColonnes);
 		addAction(action);
 	}
 

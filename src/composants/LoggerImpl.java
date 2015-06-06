@@ -107,12 +107,6 @@ public class LoggerImpl extends Logger{
 			}
 
 			@Override
-			public void setInfosInitiales(List<IInfos> infosInitiales) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
 			public void setNouveauElement(IInfos nouveauElement) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("Ajout de l'element ");
@@ -131,6 +125,13 @@ public class LoggerImpl extends Logger{
 				sb.append(agent.getNom());
 				sb.append(" est mort");
 				ecrireLog(sb.toString());
+			}
+
+			@Override
+			public void setInfosInitiales(List<IInfos> infosInitiales,
+					int nbLignes, int nbColonnes) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 	}
